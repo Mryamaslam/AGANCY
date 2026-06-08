@@ -1,0 +1,10 @@
+# HTTrack mirror leftovers (not part of the site)
+hts-cache/
+hts-log.txt
+sociallift.framer.website/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
