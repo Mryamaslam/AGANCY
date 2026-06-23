@@ -226,8 +226,11 @@ svg { display: block; }
 .avatar.tool-icon--duo img,
 .avatar.tool-icon--duo svg { width: 28px; height: 28px; object-fit: contain; display: block; }
 .tool-icon-split { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0 auto 14px; }
-.avatar.tool-icon--sm { width: 56px; height: 56px; margin: 0; padding: 11px; flex: 0 0 auto; }
+.avatar.tool-icon--sm { width: 56px; height: 56px; margin: 0; padding: 10px; flex: 0 0 auto; }
 .avatar.tool-icon--sm svg { width: 32px; height: 32px; }
+.avatar.tool-icon--sm svg.tool-logo { width: auto; height: 22px; max-width: 46px; }
+.avatar.tool-icon--sm svg.tool-logo--upwork { max-width: 38px; }
+.avatar.tool-icon--sm svg.tool-logo--fiverr { max-width: 48px; }
 .member h4 { font-size: 17px; font-weight: 700; }
 .member span { color: var(--muted); font-size: 14px; }
 
