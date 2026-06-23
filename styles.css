@@ -52,9 +52,17 @@ svg { display: block; }
 .btn-block { width: 100%; }
 
 /* ============ Announcement ============ */
-.announce { background: #060409; color: #b79bff; overflow: hidden; white-space: nowrap; font-size: 13px; font-weight: 600; letter-spacing: .04em; border-bottom: 1px solid var(--border); }
-.announce-track { display: inline-flex; animation: scroll-x 24s linear infinite; }
-.announce-track span { padding: 9px 0; }
+.announce { background: #060409; overflow: hidden; white-space: nowrap; border-bottom: 1px solid var(--border); }
+.announce-track { display: inline-flex; align-items: center; animation: scroll-x 28s linear infinite; }
+.announce-set { display: inline-flex; align-items: center; gap: 14px; padding: 7px 20px; }
+.skill-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(155, 92, 255, .12); border: 1px solid rgba(155, 92, 255, .28);
+  color: #c9a6ff; flex: 0 0 auto; transition: transform .2s, background .2s, border-color .2s;
+}
+.skill-icon:hover { transform: translateY(-1px); background: rgba(155, 92, 255, .22); border-color: rgba(194, 100, 255, .55); color: #e4d0ff; }
+.skill-icon svg { width: 18px; height: 18px; display: block; }
 
 /* ============ Floating pill nav ============ */
 .nav { position: sticky; top: 14px; z-index: 50; padding: 0 16px; }
