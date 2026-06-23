@@ -65,7 +65,9 @@ svg { display: block; }
   transition: box-shadow .3s, background .3s;
 }
 .nav.scrolled .nav-pill { background: rgba(20, 14, 33, .92); box-shadow: var(--shadow); }
-.brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 19px; color: #fff; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: #fff; letter-spacing: -.02em; }
+.brand-icon { flex: 0 0 auto; display: block; }
+.brand-text { font-weight: 800; line-height: 1; }
 .brand b { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
 .bolt { flex: 0 0 auto; }
 .nav-links { display: flex; gap: 22px; }
