@@ -223,7 +223,8 @@ svg { display: block; }
 .avatar.tool-icon img,
 .avatar.tool-icon svg { width: 36px; height: 36px; object-fit: contain; display: block; }
 .avatar.tool-icon--duo { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 12px; }
-.avatar.tool-icon--duo img { width: 28px; height: 28px; }
+.avatar.tool-icon--duo img,
+.avatar.tool-icon--duo svg { width: 28px; height: 28px; object-fit: contain; display: block; }
 .member h4 { font-size: 17px; font-weight: 700; }
 .member span { color: var(--muted); font-size: 14px; }
 
