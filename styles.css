@@ -219,6 +219,11 @@ svg { display: block; }
 .member { text-align: center; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px 18px; transition: transform .3s, box-shadow .3s, border-color .3s; }
 .member:hover { transform: translateY(-6px); border-color: var(--border-strong); box-shadow: var(--shadow); }
 .avatar { width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 14px; display: grid; place-items: center; font-weight: 800; color: #fff; background: var(--grad); font-size: 20px; }
+.avatar.tool-icon { padding: 16px; overflow: hidden; }
+.avatar.tool-icon img,
+.avatar.tool-icon svg { width: 36px; height: 36px; object-fit: contain; display: block; }
+.avatar.tool-icon--duo { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 12px; }
+.avatar.tool-icon--duo img { width: 28px; height: 28px; }
 .member h4 { font-size: 17px; font-weight: 700; }
 .member span { color: var(--muted); font-size: 14px; }
 
