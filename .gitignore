@@ -8,3 +8,5 @@ sociallift.framer.website/
 Thumbs.db
 *.log
 node_modules/
+.env
+api/data/

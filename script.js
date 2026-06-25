@@ -132,16 +132,46 @@
     });
   });
 
-  /* ---------- Subscribe (demo) ---------- */
+  /* ---------- Contact form → API ---------- */
+  var API_BASE = window.AGENCY_API_BASE || "";
+  if (!API_BASE && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+    API_BASE = "http://localhost:3001";
+  }
+
   var form = document.getElementById("subscribeForm");
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var input = form.querySelector("input");
+      var input = form.querySelector("input[type=email]");
       var btn = form.querySelector("button");
-      btn.textContent = "Thanks! ✓";
-      input.value = "";
-      setTimeout(function () { btn.textContent = "Contact Me"; }, 2500);
+      var email = (input.value || "").trim();
+      if (!email) return;
+
+      var origText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = "Sending...";
+
+      fetch(API_BASE + "/api/submissions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Website Visitor",
+          email: email,
+          message: "Contact request from footer form"
+        })
+      })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+        .then(function (res) {
+          if (!res.ok) throw new Error(res.data.error || "Failed to send");
+          btn.textContent = "Thanks! ✓";
+          input.value = "";
+          setTimeout(function () { btn.textContent = origText; }, 2500);
+        })
+        .catch(function () {
+          btn.textContent = "Try again";
+          setTimeout(function () { btn.textContent = origText; }, 2500);
+        })
+        .finally(function () { btn.disabled = false; });
     });
   }
 

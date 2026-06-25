@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin Portal | Market Maker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0610;
+      --card: #130c22;
+      --ink: #fff;
+      --muted: #a79fb8;
+      --border: rgba(255,255,255,.1);
+      --brand: #9b5cff;
+      --brand-2: #c264ff;
+      --grad: linear-gradient(120deg, #9b5cff, #c264ff);
+      --danger: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: radial-gradient(ellipse at top, rgba(155,92,255,.15), transparent 60%), var(--bg);
+    }
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 28px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.5);
+    }
+    .login-card .logo {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: var(--grad);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 16px;
+    }
+    .login-card h1 { font-size: 22px; margin-bottom: 6px; }
+    .login-card p { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--muted); }
+    .input {
+      width: 100%; padding: 12px 14px; border-radius: 12px;
+      border: 1px solid var(--border); background: rgba(255,255,255,.04);
+      color: var(--ink); font-size: 15px; font-family: inherit; outline: none;
+    }
+    .input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(155,92,255,.2); }
+    .field { margin-bottom: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 11px 18px; border-radius: 999px; border: none;
+      font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;
+      transition: transform .15s, opacity .15s;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-primary { background: var(--grad); color: #fff; width: 100%; margin-top: 8px; }
+    .btn-primary:hover { opacity: .92; }
+    .btn-ghost {
+      background: rgba(255,255,255,.05); color: var(--ink);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--brand); }
+    .btn-danger { background: rgba(248,113,113,.12); color: var(--danger); border: 1px solid rgba(248,113,113,.3); }
+    .btn-sm { padding: 7px 12px; font-size: 12px; }
+    .error { color: var(--danger); font-size: 13px; margin-top: 10px; min-height: 18px; }
+    .show-pw { font-size: 12px; color: var(--muted); margin-top: 8px; cursor: pointer; }
+
+    .portal { display: none; min-height: 100vh; }
+    .portal.active { display: block; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      padding: 14px 20px; border-bottom: 1px solid var(--border);
+      background: rgba(10,6,16,.92); backdrop-filter: blur(12px);
+    }
+    .topbar h2 { font-size: 18px; }
+    .topbar .user { font-size: 13px; color: var(--muted); }
+    .topbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .tabs {
+      display: flex; gap: 8px; padding: 16px 20px 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,6,16,.6);
+    }
+    .tab {
+      padding: 10px 18px; border: none; background: none; color: var(--muted);
+      font-weight: 600; font-size: 14px; cursor: pointer; font-family: inherit;
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+    }
+    .tab.active { color: var(--ink); border-bottom-color: var(--brand); }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .stat-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px; margin-bottom: 18px;
+    }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 16px;
+    }
+    .stat-card .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 600; }
+    .stat-card .value { font-size: 28px; font-weight: 700; margin-top: 4px; }
+
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px; margin-bottom: 16px;
+    }
+    .card h3 { font-size: 17px; margin-bottom: 6px; }
+    .card > p { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
+
+    .settings-grid { display: grid; gap: 14px; }
+    .toggle-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .toggle-row:last-child { border-bottom: none; }
+    .switch { position: relative; width: 46px; height: 26px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; inset: 0; cursor: pointer; border-radius: 999px;
+      background: rgba(255,255,255,.12); transition: .2s;
+    }
+    .slider:before {
+      content: ""; position: absolute; width: 20px; height: 20px; left: 3px; bottom: 3px;
+      background: #fff; border-radius: 50%; transition: .2s;
+    }
+    .switch input:checked + .slider { background: var(--brand); }
+    .switch input:checked + .slider:before { transform: translateX(20px); }
+
+    .toolbar { margin-bottom: 14px; }
+    .search-input {
+      width: 100%; max-width: 420px; padding: 11px 14px; border-radius: 12px;
+      border: 1px solid var(--border); background: rgba(255,255,255,.04);
+      color: var(--ink); font-size: 14px; outline: none; font-family: inherit;
+    }
+
+    .table-wrap {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; overflow-x: auto;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 700px; }
+    th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+    tr:last-child td { border-bottom: none; }
+    td a { color: #c9a8ff; }
+    .msg { white-space: pre-wrap; word-break: break-word; max-width: 400px; color: var(--muted); }
+
+    .empty { padding: 50px 20px; text-align: center; color: var(--muted); }
+    .empty h3 { color: var(--ink); margin: 8px 0 4px; }
+
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 100;
+      background: var(--card); border: 1px solid var(--border);
+      padding: 12px 18px; border-radius: 12px; font-size: 14px;
+      opacity: 0; transform: translateY(8px); transition: .2s; pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+    @media (max-width: 640px) {
+      .topbar { padding: 12px 14px; }
+      .container { padding: 16px 14px; }
+      .stat-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loginScreen" class="login-screen">
+    <form class="login-card" id="loginForm" autocomplete="off">
+      <div class="logo" aria-hidden="true">&#128274;</div>
+      <h1>Market Maker Admin</h1>
+      <p>Sign in to manage contact submissions and email settings.</p>
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" class="input" type="text" autocomplete="username" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" class="input" type="password" autocomplete="current-password" required />
+      </div>
+      <div class="show-pw" id="togglePw">Show password</div>
+      <button type="submit" class="btn btn-primary" id="loginBtn">Sign in</button>
+      <div class="error" id="loginError"></div>
+    </form>
+  </div>
+
+  <div class="portal" id="portal">
+    <div class="topbar">
+      <div>
+        <h2>Admin Portal</h2>
+        <div class="user" id="userLabel"></div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost btn-sm" id="refreshBtn">Refresh</button>
+        <button class="btn btn-ghost btn-sm" id="logoutBtn">Logout</button>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="submissions">Submissions</button>
+      <button class="tab" data-tab="email">Email Settings</button>
+    </div>
+
+    <div class="container">
+      <section class="panel active" id="panel-submissions">
+        <div class="stat-row">
+          <div class="stat-card"><div class="label">Total</div><div class="value" id="statTotal">0</div></div>
+          <div class="stat-card"><div class="label">Today</div><div class="value" id="statToday">0</div></div>
+          <div class="stat-card"><div class="label">Last 7 Days</div><div class="value" id="statWeek">0</div></div>
+          <div class="stat-card"><div class="label">Unique Emails</div><div class="value" id="statUnique">0</div></div>
+        </div>
+        <div class="toolbar" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <input class="search-input" id="search" type="text" placeholder="Search name, email, message..." />
+          <button class="btn btn-ghost btn-sm" id="exportBtn">Export CSV</button>
+          <button class="btn btn-danger btn-sm" id="clearBtn">Clear All</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+          <div id="emptyState" class="empty" style="display:none;">
+            <h3>No submissions yet</h3>
+            <p>Footer contact form submissions will appear here.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-email">
+        <div class="card">
+          <h3>Email Notifications</h3>
+          <p>Connect EmailJS to receive an email when someone submits the contact form on your website.</p>
+          <form id="emailForm" class="settings-grid">
+            <div class="toggle-row">
+              <div>
+                <strong>Enable email notifications</strong>
+                <div class="hint">Send EmailJS alert on new submission</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="emailEnabled" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="field">
+              <label for="notificationEmail">Your notification email</label>
+              <input class="input" id="notificationEmail" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <label for="emailjsServiceId">EmailJS Service ID</label>
+              <input class="input" id="emailjsServiceId" type="text" placeholder="service_xxxxxxx" />
+            </div>
+            <div class="field">
+              <label for="emailjsTemplateId">EmailJS Template ID</label>
+              <input class="input" id="emailjsTemplateId" type="text" placeholder="template_xxxxxxx" />
+            </div>
+            <div class="field">
+              <label for="emailjsPublicKey">EmailJS Public Key</label>
+              <input class="input" id="emailjsPublicKey" type="text" placeholder="Your EmailJS public key" />
+              <div class="hint">Get these from <a href="https://www.emailjs.com/" target="_blank" rel="noopener">emailjs.com</a> dashboard</div>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">
+              <button type="submit" class="btn btn-primary" style="width:auto;">Save Settings</button>
+              <button type="button" class="btn btn-ghost" id="testEmailBtn">Send Test Email</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="config.js"></script>
+  <script>
+  (function () {
+    "use strict";
+
+    var API_BASE = window.AGENCY_API_BASE || "";
+    if (!API_BASE && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+      API_BASE = "http://localhost:3001";
+    }
+    var TOKEN_KEY = "mm_admin_jwt";
+
+    var loginScreen = document.getElementById("loginScreen");
+    var portal = document.getElementById("portal");
+    var loginForm = document.getElementById("loginForm");
+    var loginError = document.getElementById("loginError");
+    var rowsEl = document.getElementById("rows");
+    var emptyEl = document.getElementById("emptyState");
+    var searchEl = document.getElementById("search");
+    var cachedSubmissions = [];
+
+    function getToken() {
+      return localStorage.getItem(TOKEN_KEY);
+    }
+    function setToken(token) {
+      if (token) localStorage.setItem(TOKEN_KEY, token);
+      else localStorage.removeItem(TOKEN_KEY);
+    }
+
+    function toast(msg) {
+      var el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(function () { el.classList.remove("show"); }, 2500);
+    }
+
+    function esc(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function api(path, options) {
+      options = options || {};
+      var headers = Object.assign({ "Content-Type": "application/json" }, options.headers || {});
+      var token = getToken();
+      if (token) headers.Authorization = "Bearer " + token;
+      return fetch(API_BASE + path, {
+        method: options.method || "GET",
+        headers: headers,
+        body: options.body ? JSON.stringify(options.body) : undefined
+      }).then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          if (!res.ok) throw new Error(data.error || "Request failed");
+          return data;
+        });
+      });
+    }
+
+    function showPortal() {
+      loginScreen.style.display = "none";
+      portal.classList.add("active");
+      loadSubmissions();
+      loadEmailSettings();
+    }
+
+    function showLogin() {
+      portal.classList.remove("active");
+      loginScreen.style.display = "flex";
+      setToken(null);
+    }
+
+    if (getToken()) {
+      api("/api/auth/me").then(function (data) {
+        document.getElementById("userLabel").textContent = "Signed in as " + data.user.username;
+        showPortal();
+      }).catch(showLogin);
+    }
+
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      loginError.textContent = "";
+      var btn = document.getElementById("loginBtn");
+      btn.disabled = true;
+      btn.textContent = "Signing in...";
+      api("/api/auth/login", {
+        method: "POST",
+        body: {
+          username: document.getElementById("username").value.trim(),
+          password: document.getElementById("password").value
+        }
+      }).then(function (data) {
+        setToken(data.token);
+        document.getElementById("userLabel").textContent = "Signed in as " + data.user.username;
+        showPortal();
+        toast("Welcome back!");
+      }).catch(function (err) {
+        loginError.textContent = err.message || "Login failed";
+      }).finally(function () {
+        btn.disabled = false;
+        btn.textContent = "Sign in";
+      });
+    });
+
+    document.getElementById("togglePw").addEventListener("click", function () {
+      var pw = document.getElementById("password");
+      if (pw.type === "password") { pw.type = "text"; this.textContent = "Hide password"; }
+      else { pw.type = "password"; this.textContent = "Show password"; }
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", showLogin);
+
+    document.querySelectorAll(".tab").forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        document.querySelectorAll(".tab").forEach(function (t) { t.classList.remove("active"); });
+        document.querySelectorAll(".panel").forEach(function (p) { p.classList.remove("active"); });
+        tab.classList.add("active");
+        document.getElementById("panel-" + tab.getAttribute("data-tab")).classList.add("active");
+      });
+    });
+
+    function fmtDate(iso) {
+      var d = new Date(iso);
+      return isNaN(d.getTime()) ? iso : d.toLocaleString();
+    }
+
+    function renderSubmissions() {
+      var all = cachedSubmissions.slice().sort(function (a, b) {
+        return new Date(b.timestamp) - new Date(a.timestamp);
+      });
+      var q = (searchEl.value || "").trim().toLowerCase();
+      var list = q ? all.filter(function (r) {
+        return (r.name || "").toLowerCase().indexOf(q) > -1
+          || (r.email || "").toLowerCase().indexOf(q) > -1
+          || (r.message || "").toLowerCase().indexOf(q) > -1;
+      }) : all;
+
+      var now = Date.now(), dayMs = 86400000, today = 0, week = 0, emails = {};
+      all.forEach(function (r) {
+        var t = new Date(r.timestamp).getTime();
+        if (!isNaN(t)) {
+          if (now - t < dayMs) today++;
+          if (now - t < 7 * dayMs) week++;
+        }
+        if (r.email) emails[r.email.toLowerCase()] = 1;
+      });
+      document.getElementById("statTotal").textContent = all.length;
+      document.getElementById("statToday").textContent = today;
+      document.getElementById("statWeek").textContent = week;
+      document.getElementById("statUnique").textContent = Object.keys(emails).length;
+
+      if (!list.length) {
+        rowsEl.innerHTML = "";
+        emptyEl.style.display = "block";
+        return;
+      }
+      emptyEl.style.display = "none";
+      rowsEl.innerHTML = list.map(function (r) {
+        return "<tr>"
+          + "<td>" + esc(fmtDate(r.timestamp)) + "</td>"
+          + "<td>" + esc(r.name) + "</td>"
+          + '<td><a href="mailto:' + esc(r.email) + '">' + esc(r.email) + "</a></td>"
+          + '<td><div class="msg">' + esc(r.message) + "</div></td>"
+          + '<td><button class="btn btn-danger btn-sm" data-del="' + esc(r.id) + '">Delete</button></td>'
+          + "</tr>";
+      }).join("");
+    }
+
+    function loadSubmissions() {
+      return api("/api/submissions").then(function (data) {
+        cachedSubmissions = Array.isArray(data) ? data : [];
+        renderSubmissions();
+      }).catch(function (err) {
+        if (err.message.indexOf("Authentication") > -1) showLogin();
+        else toast(err.message);
+      });
+    }
+
+    rowsEl.addEventListener("click", function (e) {
+      var id = e.target.getAttribute("data-del");
+      if (!id || !confirm("Delete this submission?")) return;
+      api("/api/submissions/" + encodeURIComponent(id), { method: "DELETE" })
+        .then(function () { toast("Deleted"); return loadSubmissions(); })
+        .catch(function (err) { toast(err.message); });
+    });
+
+    searchEl.addEventListener("input", renderSubmissions);
+    document.getElementById("refreshBtn").addEventListener("click", function () {
+      loadSubmissions().then(function () { toast("Refreshed"); });
+      loadEmailSettings();
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", function () {
+      if (!confirm("Delete ALL submissions?")) return;
+      api("/api/submissions", { method: "DELETE" })
+        .then(function () { cachedSubmissions = []; renderSubmissions(); toast("All cleared"); })
+        .catch(function (err) { toast(err.message); });
+    });
+
+    document.getElementById("exportBtn").addEventListener("click", function () {
+      if (!cachedSubmissions.length) { toast("Nothing to export"); return; }
+      var lines = ["Date,Name,Email,Message"];
+      cachedSubmissions.forEach(function (r) {
+        lines.push([fmtDate(r.timestamp), r.name, r.email, r.message].map(function (v) {
+          v = String(v == null ? "" : v);
+          return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+        }).join(","));
+      });
+      var blob = new Blob([lines.join("\n")], { type: "text/csv" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "submissions-" + Date.now() + ".csv";
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    function loadEmailSettings() {
+      api("/api/email-settings").then(function (s) {
+        document.getElementById("emailEnabled").checked = !!s.enabled;
+        document.getElementById("notificationEmail").value = s.notificationEmail || "";
+        document.getElementById("emailjsServiceId").value = s.emailjsServiceId || "";
+        document.getElementById("emailjsTemplateId").value = s.emailjsTemplateId || "";
+        document.getElementById("emailjsPublicKey").value = s.emailjsPublicKey || "";
+      }).catch(function () {});
+    }
+
+    document.getElementById("emailForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      api("/api/email-settings", {
+        method: "PUT",
+        body: {
+          enabled: document.getElementById("emailEnabled").checked,
+          notificationEmail: document.getElementById("notificationEmail").value.trim(),
+          emailjsServiceId: document.getElementById("emailjsServiceId").value.trim(),
+          emailjsTemplateId: document.getElementById("emailjsTemplateId").value.trim(),
+          emailjsPublicKey: document.getElementById("emailjsPublicKey").value.trim()
+        }
+      }).then(function () { toast("Email settings saved"); })
+        .catch(function (err) { toast(err.message); });
+    });
+
+    document.getElementById("testEmailBtn").addEventListener("click", function () {
+      var btn = document.getElementById("testEmailBtn");
+      btn.disabled = true;
+      api("/api/email-settings/test", { method: "POST" })
+        .then(function () { toast("Test email sent!"); })
+        .catch(function (err) { toast(err.message); })
+        .finally(function () { btn.disabled = false; });
+    });
+
+    setInterval(function () {
+      if (portal.classList.contains("active")) loadSubmissions();
+    }, 60000);
+  })();
+  </script>
+</body>
+</html>
