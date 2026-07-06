@@ -9,24 +9,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=202607061215" />
+  <link rel="stylesheet" href="styles.css?v=202607061233" />
   <style>
-    /* Contact layout: form on top, info cards in a row below */
-    #contact .contact-layout {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-      max-width: 920px;
-      margin: 0 auto;
+    /* Contact: form on top, info cards in a row below */
+    #contact { scroll-margin-top: 120px; }
+    #contact .contact-form {
+      max-width: 780px;
+      margin: 0 auto 32px;
     }
-    #contact .contact-cards {
+    #contact .contact-cards-row {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 24px;
       width: 100%;
     }
     @media (max-width: 760px) {
-      #contact .contact-cards { grid-template-columns: 1fr; }
+      #contact .contact-cards-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -479,8 +477,7 @@
         <p>Fill out the form below and we'll get back to you within 24 hours. You can also reach us directly by email, phone, or WhatsApp.</p>
       </div>
 
-      <div class="contact-layout">
-        <form class="contact-form reveal" id="contactForm" novalidate>
+      <form class="contact-form reveal" id="contactForm" novalidate>
           <div class="form-row">
             <div class="form-field">
               <label for="contactName">Your Name</label>
@@ -497,9 +494,9 @@
           </div>
           <button class="btn btn-primary btn-lg" type="submit" id="contactSubmitBtn">Send Message →</button>
           <p class="form-status" id="contactFormStatus" role="status" aria-live="polite" hidden></p>
-        </form>
+      </form>
 
-        <div class="contact-cards grid grid-3">
+      <div class="contact-cards-row">
           <a class="contact-card reveal" data-delay="0" href="mailto:bilalrazaupwork@gmail.com">
             <div class="f-ico anim-bob"><svg viewBox="0 0 48 48"><rect class="dash" x="9" y="14" width="30" height="20" rx="3"/><path class="dash" d="M9 19l15 9 15-9"/></svg></div>
             <h3>Email</h3><p>bilalrazaupwork@gmail.com</p>
@@ -512,7 +509,6 @@
             <div class="f-ico anim-pulse"><svg viewBox="0 0 48 48"><path class="dash" d="M24 6c-7 0-13 6-13 13 0 9 13 23 13 23s13-14 13-23c0-7-6-13-13-13z"/><circle class="dash" cx="24" cy="19" r="4"/></svg></div>
             <h3>Location</h3><p>Lahore, Pakistan</p>
           </div>
-        </div>
       </div>
     </div>
   </section>
