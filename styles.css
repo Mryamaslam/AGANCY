@@ -158,6 +158,9 @@ svg { display: block; }
 .stack-card {
   position: sticky;
   top: calc(120px + var(--i) * 22px);
+  z-index: calc(var(--i) + 1);
+  isolation: isolate;
+  overflow: hidden;
   background: linear-gradient(180deg, var(--card-2), var(--card));
   border: 1px solid var(--border-strong);
   border-radius: 24px; padding: 34px 32px;

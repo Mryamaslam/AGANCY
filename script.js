@@ -75,19 +75,21 @@
   var cards = Array.prototype.slice.call(document.querySelectorAll(".stack-card"));
   function scaleStack() {
     if (window.innerWidth <= 980) { cards.forEach(function (c) { c.style.transform = ""; c.style.opacity = ""; }); return; }
+    var lastIndex = cards.length - 1;
     cards.forEach(function (card, i) {
       var rect = card.getBoundingClientRect();
       var stickTop = 120 + i * 22;
       // distance the card has been "pushed past" its sticky point
       var past = stickTop - rect.top;
-      if (past > 0) {
-        var s = Math.max(0.9, 1 - past / 2600);
-        var o = Math.max(0.45, 1 - past / 900);
+      // Only fade cards that are covered by a later card — keep the last card fully opaque
+      if (past > 0 && i < lastIndex) {
+        var s = Math.max(0.92, 1 - past / 2600);
+        var o = Math.max(0, 1 - past / 450);
         card.style.transform = "scale(" + s + ")";
-        card.style.opacity = o;
+        card.style.opacity = String(o);
       } else {
         card.style.transform = "scale(1)";
-        card.style.opacity = 1;
+        card.style.opacity = "1";
       }
     });
   }
