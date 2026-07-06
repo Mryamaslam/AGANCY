@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260706nopricing" />
+  <link rel="stylesheet" href="styles.css?v=20260706contact" />
 </head>
 <body>
 
@@ -446,38 +446,60 @@
       <div class="cta-inner reveal">
         <h2>Ready to Grow Your <span class="grad">Business?</span></h2>
         <p>Got a project in mind? Tell us about it. The more detail, the better our first call will be.</p>
-        <a href="mailto:bilalrazaupwork@gmail.com" class="btn btn-primary btn-lg">Get a Free Consultation</a>
+        <a href="#contact" class="btn btn-primary btn-lg">Get a Free Consultation</a>
       </div>
     </div>
   </section>
 
-  <!-- Contact info -->
-  <section class="section" id="contact-info">
+  <!-- Contact -->
+  <section class="section" id="contact">
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Contact</span>
         <h2>Let's Get <span class="grad">In Touch</span></h2>
-        <p>We'd love to hear about your next project. Pick whichever channel works best for you.</p>
+        <p>Fill out the form below and we'll get back to you within 24 hours. You can also reach us directly by email, phone, or WhatsApp.</p>
       </div>
-      <div class="grid grid-3">
-        <a class="contact-card reveal" data-delay="0" href="mailto:bilalrazaupwork@gmail.com">
-          <div class="f-ico anim-bob"><svg viewBox="0 0 48 48"><rect class="dash" x="9" y="14" width="30" height="20" rx="3"/><path class="dash" d="M9 19l15 9 15-9"/></svg></div>
-          <h3>Email</h3><p>bilalrazaupwork@gmail.com</p>
-        </a>
-        <a class="contact-card reveal" data-delay="100" href="https://wa.me/923089494949">
-          <div class="f-ico anim-swing"><svg viewBox="0 0 48 48"><path class="dash" d="M14 10c-2 0-4 2-4 4 0 13 11 24 24 24 2 0 4-2 4-4v-5l-7-3-3 4c-4-2-7-5-9-9l4-3-3-7z"/></svg></div>
-          <h3>Call / WhatsApp</h3><p>(+92) 308 9494949</p>
-        </a>
-        <div class="contact-card reveal" data-delay="200">
-          <div class="f-ico anim-pulse"><svg viewBox="0 0 48 48"><path class="dash" d="M24 6c-7 0-13 6-13 13 0 9 13 23 13 23s13-14 13-23c0-7-6-13-13-13z"/><circle class="dash" cx="24" cy="19" r="4"/></svg></div>
-          <h3>Location</h3><p>Lahore, Pakistan</p>
+
+      <div class="contact-layout">
+        <form class="contact-form reveal" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="contactName">Your Name</label>
+              <input type="text" id="contactName" name="name" placeholder="John Smith" autocomplete="name" required />
+            </div>
+            <div class="form-field">
+              <label for="contactEmail">Email Address</label>
+              <input type="email" id="contactEmail" name="email" placeholder="you@company.com" autocomplete="email" required />
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" name="message" rows="5" placeholder="Tell us about your project, goals, and timeline..." required></textarea>
+          </div>
+          <button class="btn btn-primary btn-lg" type="submit" id="contactSubmitBtn">Send Message →</button>
+          <p class="form-status" id="contactFormStatus" role="status" aria-live="polite" hidden></p>
+        </form>
+
+        <div class="contact-side">
+          <a class="contact-card reveal" data-delay="0" href="mailto:bilalrazaupwork@gmail.com">
+            <div class="f-ico anim-bob"><svg viewBox="0 0 48 48"><rect class="dash" x="9" y="14" width="30" height="20" rx="3"/><path class="dash" d="M9 19l15 9 15-9"/></svg></div>
+            <h3>Email</h3><p>bilalrazaupwork@gmail.com</p>
+          </a>
+          <a class="contact-card reveal" data-delay="100" href="https://wa.me/923089494949">
+            <div class="f-ico anim-swing"><svg viewBox="0 0 48 48"><path class="dash" d="M14 10c-2 0-4 2-4 4 0 13 11 24 24 24 2 0 4-2 4-4v-5l-7-3-3 4c-4-2-7-5-9-9l4-3-3-7z"/></svg></div>
+            <h3>Call / WhatsApp</h3><p>(+92) 308 9494949</p>
+          </a>
+          <div class="contact-card reveal" data-delay="200">
+            <div class="f-ico anim-pulse"><svg viewBox="0 0 48 48"><path class="dash" d="M24 6c-7 0-13 6-13 13 0 9 13 23 13 23s13-14 13-23c0-7-6-13-13-13z"/><circle class="dash" cx="24" cy="19" r="4"/></svg></div>
+            <h3>Location</h3><p>Lahore, Pakistan</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="footer" id="contact">
+  <footer class="footer">
     <div class="container footer-top">
       <div class="footer-brand">
         <a href="#home" class="brand">
@@ -497,11 +519,7 @@
           <span class="brand-text">Market <b>Maker</b></span>
         </a>
         <p>We provide email marketing, Meta Ads, Google Ads, LinkedIn outreach, Upwork bidding, and list building, built to help you win more clients and close more deals.</p>
-        <form class="subscribe" id="subscribeForm">
-          <input type="email" placeholder="Your email for a quick reply" required />
-          <button class="btn btn-primary" type="submit">Contact Us</button>
-        </form>
-        <p class="tiny">We'll get back to you within 24 hours.</p>
+        <a href="#contact" class="btn btn-primary">Send Us a Message →</a>
       </div>
       <div class="footer-cols">
         <div>
@@ -516,7 +534,7 @@
           <h5>Get In Touch</h5>
           <a href="mailto:bilalrazaupwork@gmail.com">bilalrazaupwork@gmail.com</a>
           <a href="https://wa.me/923089494949">(+92) 308 9494949</a>
-          <a href="#contact-info">Lahore, Pakistan</a>
+          <a href="#contact">Lahore, Pakistan</a>
         </div>
       </div>
     </div>

@@ -138,40 +138,66 @@
     API_BASE = "http://localhost:3001";
   }
 
-  var form = document.getElementById("subscribeForm");
+  var form = document.getElementById("contactForm");
   if (form) {
+    var statusEl = document.getElementById("contactFormStatus");
+    var submitBtn = document.getElementById("contactSubmitBtn");
+
+    function showStatus(msg, isError) {
+      if (!statusEl) return;
+      statusEl.textContent = msg;
+      statusEl.hidden = false;
+      statusEl.className = "form-status" + (isError ? " form-status--error" : " form-status--success");
+    }
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var input = form.querySelector("input[type=email]");
-      var btn = form.querySelector("button");
-      var email = (input.value || "").trim();
-      if (!email) return;
 
-      var origText = btn.textContent;
-      btn.disabled = true;
-      btn.textContent = "Sending...";
+      var nameInput = form.querySelector("#contactName");
+      var emailInput = form.querySelector("#contactEmail");
+      var messageInput = form.querySelector("#contactMessage");
+
+      var name = (nameInput && nameInput.value || "").trim();
+      var email = (emailInput && emailInput.value || "").trim();
+      var message = (messageInput && messageInput.value || "").trim();
+
+      if (!name || !email || !message) {
+        showStatus("Please fill in your name, email, and message.", true);
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showStatus("Please enter a valid email address.", true);
+        return;
+      }
+
+      var origText = submitBtn ? submitBtn.textContent : "Send Message";
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+      }
+      if (statusEl) statusEl.hidden = true;
 
       fetch(API_BASE + "/api/submissions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: "Website Visitor",
-          email: email,
-          message: "Contact request from footer form"
-        })
+        body: JSON.stringify({ name: name, email: email, message: message })
       })
         .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
         .then(function (res) {
           if (!res.ok) throw new Error(res.data.error || "Failed to send");
-          btn.textContent = "Thanks! ✓";
-          input.value = "";
-          setTimeout(function () { btn.textContent = origText; }, 2500);
+          showStatus("Message sent successfully! We'll get back to you within 24 hours.", false);
+          form.reset();
         })
         .catch(function () {
-          btn.textContent = "Try again";
-          setTimeout(function () { btn.textContent = origText; }, 2500);
+          showStatus("Something went wrong. Please try again or email us directly.", true);
         })
-        .finally(function () { btn.disabled = false; });
+        .finally(function () {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = origText;
+          }
+        });
     });
   }
 
