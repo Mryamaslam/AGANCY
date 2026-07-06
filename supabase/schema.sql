@@ -13,7 +13,7 @@ create index if not exists submissions_email_idx on public.submissions (email);
 
 create table if not exists public.email_settings (
   id int primary key default 1 check (id = 1),
-  notification_email text not null default 'bilalrazaupwork@gmail.com',
+  notification_email text not null default 'info@marketmakers.dev',
   emailjs_service_id text default '',
   emailjs_template_id text default '',
   emailjs_public_key text default '',

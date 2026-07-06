@@ -1,7 +1,7 @@
 import { getSupabase } from './supabase.js';
 
 const DEFAULT_EMAIL_SETTINGS = {
-  notificationEmail: 'bilalrazaupwork@gmail.com',
+  notificationEmail: 'info@marketmakers.dev',
   emailjsServiceId: '',
   emailjsTemplateId: '',
   emailjsPublicKey: '',
