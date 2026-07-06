@@ -1,2 +1,3 @@
 layout=stacked-contact-v2
-commit=deploy-fix-1
+commit=79a8dae
+redeploy=2026-07-06T1516
