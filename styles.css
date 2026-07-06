@@ -387,6 +387,23 @@ svg { display: block; }
 .contact-card:hover { transform: translateY(-6px); border-color: var(--border-strong); box-shadow: var(--shadow); }
 .contact-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 6px; }
 .contact-card p { color: var(--muted); word-break: break-word; }
+.contact-card .contact-link-text { color: #c9b8ff; text-decoration: underline; text-underline-offset: 3px; }
+.contact-card:hover .contact-link-text { color: #fff; }
+.contact-card-actions { display: flex; flex-direction: column; gap: 10px; align-items: center; margin: 0; }
+.contact-card-actions a {
+  color: #c9b8ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: color .2s;
+}
+.contact-card-actions a:hover { color: #fff; }
+.faq-a a, .footer-cols a[href^="mailto:"], .footer-cols a[href^="tel:"], .footer-cols a[href*="wa.me"] {
+  color: #c9b8ff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.faq-a a:hover, .footer-cols a[href^="mailto:"]:hover, .footer-cols a[href^="tel:"]:hover, .footer-cols a[href*="wa.me"]:hover { color: #fff; }
 
 /* ============ Footer ============ */
 .footer { background: #060409; color: #b3abc6; padding: 64px 0 28px; border-top: 1px solid var(--border); }
