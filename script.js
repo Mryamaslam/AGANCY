@@ -4,7 +4,7 @@
   /* ---------- Testimonials ---------- */
   var testimonials = [
     { t: "Their cold email campaigns filled our pipeline within weeks. Replies tripled and we closed three new deals.", n: "Sarah Mitchell", r: "Founder, TrendWave", a: "SM" },
-    { t: "The LinkedIn outreach team gets it — real connections, not spam. Meetings started rolling in fast.", n: "James Carter", r: "Sales Lead, PostPulse", a: "JC" },
+    { t: "The LinkedIn outreach team gets it. Real connections, not spam. Meetings started rolling in fast.", n: "James Carter", r: "Sales Lead, PostPulse", a: "JC" },
     { t: "They rebuilt our Upwork profile and proposals. Job invites and our success score went up noticeably.", n: "Aisha Khan", r: "Freelance Designer", a: "AK" },
     { t: "Our Meta and Google ads were burning budget. Market Maker restructured everything and cut our cost per lead in half.", n: "David Lee", r: "CMO, SnapSphere", a: "DL" },
     { t: "Clean data, qualified leads, honest reporting. Exactly the kind of agency partner a growing B2B team needs.", n: "Maria Gomez", r: "Head of Growth, BuzzHive", a: "MG" },
