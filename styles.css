@@ -339,6 +339,48 @@ svg { display: block; }
 .meta-preview-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
 .meta-preview-card p { color: var(--muted); font-size: 14px; }
 
+.tool-dashboard-head { margin-top: 56px; text-align: center; }
+.tool-dashboard-head h3 { font-size: clamp(22px, 3vw, 30px); font-weight: 800; margin-bottom: 10px; }
+.tool-dashboard-head p { color: var(--muted); max-width: 560px; margin: 0 auto; }
+.tool-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+}
+.tool-dashboard-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform .3s, border-color .3s, box-shadow .3s;
+}
+.tool-dashboard-card:hover { transform: translateY(-5px); border-color: var(--border-strong); box-shadow: var(--shadow); }
+.tool-dashboard-card .work-card-img-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 12px 0;
+  border: 0;
+  background: #f4f5f8;
+  cursor: zoom-in;
+}
+.tool-dashboard-card img,
+.tool-dashboard-card .tool-dashboard-img {
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+  max-height: 420px;
+  object-fit: contain;
+  object-position: center top;
+  display: block;
+  background: #fff;
+  border-radius: 8px 8px 0 0;
+  border: 1px solid rgba(0, 0, 0, .06);
+}
+.tool-dashboard-body { padding: 16px 18px 18px; }
+.tool-dashboard-body h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.tool-dashboard-body span { color: var(--muted); font-size: 13px; }
+
 /* ============ Contact form ============ */
 #contact { scroll-margin-top: 120px; }
 .contact-form {
@@ -489,6 +531,7 @@ svg { display: block; }
 }
 @media (max-width: 900px) {
   .meta-preview-grid { grid-template-columns: repeat(2, 1fr); }
+  .tool-dashboard-grid { grid-template-columns: repeat(2, 1fr); }
   .work-grid { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
   .pricing-grid.grid-3 { grid-template-columns: 1fr; max-width: 460px; }
@@ -506,6 +549,9 @@ svg { display: block; }
   .footer-cols { grid-template-columns: 1fr 1fr; }
   .tcard { width: 300px; }
   .meta-preview-grid { grid-template-columns: 1fr; }
+  .tool-dashboard-grid { grid-template-columns: 1fr; }
+  .tool-dashboard-card img,
+  .tool-dashboard-card .tool-dashboard-img { max-height: 300px; }
   .work-grid { grid-template-columns: 1fr; }
   #contact .contact-cards-row { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
