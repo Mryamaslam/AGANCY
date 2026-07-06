@@ -1,9 +1,8 @@
 [build]
   publish = "."
-  command = ""
+  command = "echo Static deploy"
 
 [build.environment]
-  # Static site only — skip npm install (package.json is for Vercel API)
   NETLIFY_SKIP_DEPENDENCY_INSTALL = "true"
 
 [[headers]]

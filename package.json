@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "echo Static site — no build step required",
     "dev:api": "node api/server.js",
     "start:api": "node api/server.js"
   },
