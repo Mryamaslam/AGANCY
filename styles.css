@@ -315,7 +315,7 @@ svg { display: block; }
 .meta-preview-card p { color: var(--muted); font-size: 14px; }
 
 /* ============ Contact form ============ */
-.contact-layout {
+#contact .contact-layout {
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -379,7 +379,12 @@ svg { display: block; }
 }
 .form-status--success { color: #4ade80; }
 .form-status--error { color: #f87171; }
-.contact-cards { width: 100%; }
+#contact .contact-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+}
 
 /* ============ Contact cards ============ */
 .contact-card { display: block; text-align: center; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px 24px; transition: transform .3s, box-shadow .3s, border-color .3s; }
@@ -463,6 +468,7 @@ svg { display: block; }
   .tcard { width: 300px; }
   .meta-preview-grid { grid-template-columns: 1fr; }
   .work-grid { grid-template-columns: 1fr; }
+  #contact .contact-cards { grid-template-columns: 1fr; }
   .contact-layout { max-width: 100%; }
   .form-row { grid-template-columns: 1fr; }
 }
