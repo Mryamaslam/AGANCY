@@ -61,13 +61,93 @@
   /* ---------- Mobile menu ---------- */
   var toggle = document.getElementById("navToggle");
   var links = document.getElementById("navLinks");
+
+  function closeMobileMenu() {
+    if (toggle) toggle.classList.remove("open");
+    if (links) links.classList.remove("open");
+  }
+
   if (toggle) {
     toggle.addEventListener("click", function () {
       toggle.classList.toggle("open");
       links.classList.toggle("open");
     });
-    links.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", function () { toggle.classList.remove("open"); links.classList.remove("open"); });
+    if (links) {
+      links.querySelectorAll("a").forEach(function (a) {
+        a.addEventListener("click", closeMobileMenu);
+      });
+    }
+  }
+
+  /* ---------- Contact CTAs → scroll to contact form ---------- */
+  var CONTACT_HREF_RE = /#contact$/i;
+
+  function isContactLink(el) {
+    if (!el || el.tagName !== "A") return false;
+    var href = (el.getAttribute("href") || "").trim();
+    if (CONTACT_HREF_RE.test(href) || href === "contact") return true;
+    if (/index\.html#contact$/i.test(href)) return true;
+    var text = (el.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
+    if (el.classList.contains("nav-cta")) return true;
+    if (el.classList.contains("contact-scroll")) return true;
+    return /^(hire us|hire us today|let's work together|start a campaign|fill your pipeline|get a free consultation|send us a message|contact us|get in touch|contact)$/.test(text)
+      || text.indexOf("hire us") === 0
+      || text.indexOf("free consultation") !== -1
+      || text.indexOf("send us a message") !== -1;
+  }
+
+  function scrollToContactSection(focusForm) {
+    var contact = document.getElementById("contact");
+    if (!contact) return false;
+    closeMobileMenu();
+    contact.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (focusForm) {
+      window.setTimeout(function () {
+        var nameInput = document.getElementById("contactName");
+        if (nameInput) nameInput.focus({ preventScroll: true });
+      }, 500);
+    }
+    return true;
+  }
+
+  function goToContactPage() {
+    var path = window.location.pathname || "";
+    var base = path.slice(-1) === "/" ? path + "index.html" : path.replace(/[^/]+$/, "index.html");
+    if (base === "index.html" || path.indexOf("index.html") !== -1) {
+      window.location.hash = "contact";
+      scrollToContactSection(true);
+      return;
+    }
+    window.location.href = "index.html#contact";
+  }
+
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest("a");
+    if (!el || !isContactLink(el)) return;
+    if (/^(mailto:|tel:|https?:)/i.test(el.getAttribute("href") || "")) return;
+
+    var href = (el.getAttribute("href") || "").trim();
+    if (document.getElementById("contact")) {
+      e.preventDefault();
+      if (href.indexOf("#") !== -1) {
+        history.pushState(null, "", "#contact");
+      }
+      scrollToContactSection(true);
+      return;
+    }
+    if (/index\.html#contact$/i.test(href) || href === "#contact" || href === "contact" || isContactLink(el)) {
+      e.preventDefault();
+      goToContactPage();
+    }
+  }, true);
+
+  document.querySelectorAll('a[href="#contact"], a[href="index.html#contact"]').forEach(function (a) {
+    a.classList.add("contact-scroll");
+  });
+
+  if (window.location.hash === "#contact") {
+    window.addEventListener("load", function () {
+      window.setTimeout(function () { scrollToContactSection(true); }, 120);
     });
   }
 
@@ -200,6 +280,32 @@
             submitBtn.textContent = origText;
           }
         });
+    });
+  }
+
+  /* ---------- Dashboard screenshot lightbox ---------- */
+  var overlay = document.getElementById("work-overlay");
+  var overlayImg = document.getElementById("work-overlay-img");
+  var closeBtn = document.getElementById("work-overlay-close");
+  if (overlay && overlayImg) {
+    function closeOverlay() {
+      overlay.hidden = true;
+      overlayImg.removeAttribute("src");
+      document.body.style.overflow = "";
+    }
+    document.querySelectorAll(".work-card-img-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        overlayImg.src = btn.getAttribute("data-full");
+        overlay.hidden = false;
+        document.body.style.overflow = "hidden";
+      });
+    });
+    if (closeBtn) closeBtn.addEventListener("click", closeOverlay);
+    overlay.addEventListener("click", function (e) {
+      if (e.target === overlay) closeOverlay();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !overlay.hidden) closeOverlay();
     });
   }
 
