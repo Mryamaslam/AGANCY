@@ -297,7 +297,7 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="config.js?v=20260707form1"></script>
+  <script src="config.js?v=20260707form2"></script>
   <script>
   (function () {
     "use strict";
@@ -316,6 +316,13 @@
     var emptyEl = document.getElementById("emptyState");
     var searchEl = document.getElementById("search");
     var cachedSubmissions = [];
+    var lastSubmissionCount = 0;
+    var refreshTimer = null;
+
+    function isSubmissionsPanelActive() {
+      var panel = document.getElementById("panel-submissions");
+      return panel && panel.classList.contains("active");
+    }
 
     function getToken() {
       return localStorage.getItem(TOKEN_KEY);
@@ -361,6 +368,7 @@
       portal.classList.add("active");
       loadSubmissions();
       loadEmailSettings();
+      startAutoRefresh();
     }
 
     function showLogin() {
@@ -415,6 +423,7 @@
         document.querySelectorAll(".panel").forEach(function (p) { p.classList.remove("active"); });
         tab.classList.add("active");
         document.getElementById("panel-" + tab.getAttribute("data-tab")).classList.add("active");
+        if (tab.getAttribute("data-tab") === "submissions") loadSubmissions(true);
       });
     });
 
@@ -465,14 +474,28 @@
       }).join("");
     }
 
-    function loadSubmissions() {
+    function loadSubmissions(silent) {
       return api("/api/submissions").then(function (data) {
-        cachedSubmissions = Array.isArray(data) ? data : [];
+        var next = Array.isArray(data) ? data : [];
+        if (silent && next.length > lastSubmissionCount && lastSubmissionCount > 0) {
+          toast("New submission received");
+        }
+        lastSubmissionCount = next.length;
+        cachedSubmissions = next;
         renderSubmissions();
       }).catch(function (err) {
         if (err.message.indexOf("Authentication") > -1) showLogin();
-        else toast(err.message);
+        else if (!silent) toast(err.message);
       });
+    }
+
+    function startAutoRefresh() {
+      if (refreshTimer) clearInterval(refreshTimer);
+      refreshTimer = setInterval(function () {
+        if (portal.classList.contains("active") && isSubmissionsPanelActive()) {
+          loadSubmissions(true);
+        }
+      }, 10000);
     }
 
     rowsEl.addEventListener("click", function (e) {
@@ -547,9 +570,11 @@
         .finally(function () { btn.disabled = false; });
     });
 
-    setInterval(function () {
-      if (portal.classList.contains("active")) loadSubmissions();
-    }, 60000);
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden && portal.classList.contains("active") && isSubmissionsPanelActive()) {
+        loadSubmissions(true);
+      }
+    });
   })();
   </script>
 </body>
