@@ -21,15 +21,16 @@ import { sendNotificationEmail } from './lib/email.js';
 dotenv.config();
 
 const app = express();
+const routes = express.Router();
 
 app.use(cors({ origin: true }));
 app.use(express.json({ limit: '100kb' }));
 
-app.get('/api/health', (_req, res) => {
+routes.get('/health', (_req, res) => {
   res.json({ ok: true, service: 'market-maker-agency-api', storage: getStorageMode() });
 });
 
-app.post('/api/auth/login', async (req, res) => {
+routes.post('/auth/login', async (req, res) => {
   try {
     const { username, password } = req.body || {};
     if (!username || !password) {
@@ -55,11 +56,11 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
-app.get('/api/auth/me', authMiddleware, (req, res) => {
+routes.get('/auth/me', authMiddleware, (req, res) => {
   res.json({ user: { username: req.user.sub, role: req.user.role } });
 });
 
-app.get('/api/submissions', authMiddleware, async (_req, res) => {
+routes.get('/submissions', authMiddleware, async (_req, res) => {
   try {
     const submissions = await listSubmissions();
     res.json(submissions);
@@ -68,7 +69,7 @@ app.get('/api/submissions', authMiddleware, async (_req, res) => {
   }
 });
 
-app.post('/api/submissions', async (req, res) => {
+routes.post('/submissions', async (req, res) => {
   try {
     const { name, email, message } = req.body || {};
     const cleanEmail = String(email || '').trim().toLowerCase();
@@ -100,7 +101,7 @@ app.post('/api/submissions', async (req, res) => {
   }
 });
 
-app.delete('/api/submissions/:id', authMiddleware, async (req, res) => {
+routes.delete('/submissions/:id', authMiddleware, async (req, res) => {
   try {
     const deleted = await deleteSubmission(req.params.id);
     if (!deleted) {
@@ -112,7 +113,7 @@ app.delete('/api/submissions/:id', authMiddleware, async (req, res) => {
   }
 });
 
-app.delete('/api/submissions', authMiddleware, async (_req, res) => {
+routes.delete('/submissions', authMiddleware, async (_req, res) => {
   try {
     await clearSubmissions();
     res.json({ ok: true });
@@ -121,7 +122,7 @@ app.delete('/api/submissions', authMiddleware, async (_req, res) => {
   }
 });
 
-app.get('/api/email-settings', authMiddleware, async (_req, res) => {
+routes.get('/email-settings', authMiddleware, async (_req, res) => {
   try {
     const settings = await getEmailSettings();
     res.json(settings);
@@ -130,7 +131,7 @@ app.get('/api/email-settings', authMiddleware, async (_req, res) => {
   }
 });
 
-app.put('/api/email-settings', authMiddleware, async (req, res) => {
+routes.put('/email-settings', authMiddleware, async (req, res) => {
   try {
     const settings = await updateEmailSettings(req.body || {});
     res.json({ ok: true, settings });
@@ -139,7 +140,7 @@ app.put('/api/email-settings', authMiddleware, async (req, res) => {
   }
 });
 
-app.post('/api/email-settings/test', authMiddleware, async (_req, res) => {
+routes.post('/email-settings/test', authMiddleware, async (_req, res) => {
   try {
     const emailSettings = await getEmailSettings();
     const result = await sendNotificationEmail(emailSettings, {
@@ -154,6 +155,15 @@ app.post('/api/email-settings/test', authMiddleware, async (_req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message || 'Test email failed' });
   }
+});
+
+// Vercel maps api/index.js to /api/* and passes paths without the /api prefix.
+// Local dev (node api/server.js) uses full /api/* paths — mount both.
+app.use('/api', routes);
+app.use(routes);
+
+app.use((_req, res) => {
+  res.status(404).json({ error: 'Not found' });
 });
 
 export default app;

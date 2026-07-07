@@ -1,0 +1,12 @@
+dashboards/
+tool-dashboards/
+framerusercontent.com/
+*.html
+*.css
+*.gif
+hts-cache/
+hts-log.txt
+sociallift.framer.website/
+MAKE_NETLIFY_ZIP.bat
+netlify.toml
+.github/
