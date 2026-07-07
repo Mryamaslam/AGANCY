@@ -1,4 +1,5 @@
-import { getSupabase } from './supabase.js';
+import { getSupabase, isSupabaseConfigured } from './supabase.js';
+import * as fileStore from './fileStore.js';
 
 const DEFAULT_EMAIL_SETTINGS = {
   notificationEmail: 'info@marketmakers.dev',
@@ -7,6 +8,10 @@ const DEFAULT_EMAIL_SETTINGS = {
   emailjsPublicKey: '',
   enabled: false
 };
+
+export function getStorageMode() {
+  return isSupabaseConfigured() ? 'supabase' : 'file';
+}
 
 function rowToSubmission(row) {
   return {
@@ -30,10 +35,12 @@ function rowToEmailSettings(row) {
 }
 
 export function newSubmissionId() {
-  return 'sub_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+  return fileStore.newSubmissionId();
 }
 
 export async function listSubmissions() {
+  if (!isSupabaseConfigured()) return fileStore.listSubmissions();
+
   const { data, error } = await getSupabase()
     .from('submissions')
     .select('id, created_at, name, email, message')
@@ -44,6 +51,8 @@ export async function listSubmissions() {
 }
 
 export async function createSubmission(submission) {
+  if (!isSupabaseConfigured()) return fileStore.createSubmission(submission);
+
   const { data, error } = await getSupabase()
     .from('submissions')
     .insert({
@@ -61,6 +70,8 @@ export async function createSubmission(submission) {
 }
 
 export async function deleteSubmission(id) {
+  if (!isSupabaseConfigured()) return fileStore.deleteSubmission(id);
+
   const { data, error } = await getSupabase()
     .from('submissions')
     .delete()
@@ -72,6 +83,8 @@ export async function deleteSubmission(id) {
 }
 
 export async function clearSubmissions() {
+  if (!isSupabaseConfigured()) return fileStore.clearSubmissions();
+
   const { error } = await getSupabase()
     .from('submissions')
     .delete()
@@ -81,6 +94,8 @@ export async function clearSubmissions() {
 }
 
 export async function getEmailSettings() {
+  if (!isSupabaseConfigured()) return fileStore.getEmailSettings();
+
   const { data, error } = await getSupabase()
     .from('email_settings')
     .select('*')
@@ -92,6 +107,8 @@ export async function getEmailSettings() {
 }
 
 export async function updateEmailSettings(settings) {
+  if (!isSupabaseConfigured()) return fileStore.updateEmailSettings(settings);
+
   const current = await getEmailSettings();
   const next = {
     id: 1,

@@ -214,11 +214,17 @@
     });
   });
 
-  /* ---------- Contact form → API ---------- */
+  /* ---------- Contact form → email + API storage ---------- */
   var API_BASE = window.AGENCY_API_BASE || "";
   if (!API_BASE && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
     API_BASE = "http://localhost:3001";
   }
+  var NOTIFY_EMAIL = window.AGENCY_NOTIFY_EMAIL || "info@marketmakers.dev";
+  var EMAILJS = window.AGENCY_EMAILJS || {
+    service_id: "service_2ph8u3w",
+    template_id: "template_56jyetw",
+    user_id: "j3AoH8cf3nfZVbQVN"
+  };
 
   var form = document.getElementById("contactForm");
   if (form) {
@@ -232,6 +238,73 @@
       statusEl.className = "form-status" + (isError ? " form-status--error" : " form-status--success");
     }
 
+    function emailParams(entry) {
+      return {
+        to_email: NOTIFY_EMAIL,
+        user_name: entry.name,
+        user_email: entry.email,
+        from_name: entry.name || "Website Visitor",
+        from_email: entry.email,
+        reply_to: entry.email,
+        message: entry.message || "New agency contact form submission"
+      };
+    }
+
+    function sendEmailJs(entry) {
+      return fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service_id: EMAILJS.service_id,
+          template_id: EMAILJS.template_id,
+          user_id: EMAILJS.user_id,
+          template_params: emailParams(entry)
+        })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("emailjs");
+        return r.text();
+      });
+    }
+
+    function sendFormSubmit(entry) {
+      return fetch("https://formsubmit.co/ajax/" + encodeURIComponent(NOTIFY_EMAIL), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          name: entry.name,
+          email: entry.email,
+          message: entry.message,
+          _subject: "Market Maker contact from " + (entry.name || "visitor"),
+          _template: "table",
+          _captcha: "false"
+        })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("formsubmit");
+        return r.json();
+      });
+    }
+
+    function saveToApi(entry) {
+      if (!API_BASE) return Promise.reject(new Error("no-api"));
+      return fetch(API_BASE + "/api/submissions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: entry.name,
+          email: entry.email,
+          message: entry.message
+        })
+      }).then(function (r) {
+        return r.json().then(function (d) {
+          if (!r.ok) throw new Error(d.error || "api");
+          return d;
+        });
+      });
+    }
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
@@ -239,16 +312,18 @@
       var emailInput = form.querySelector("#contactEmail");
       var messageInput = form.querySelector("#contactMessage");
 
-      var name = (nameInput && nameInput.value || "").trim();
-      var email = (emailInput && emailInput.value || "").trim();
-      var message = (messageInput && messageInput.value || "").trim();
+      var entry = {
+        name: (nameInput && nameInput.value || "").trim(),
+        email: (emailInput && emailInput.value || "").trim(),
+        message: (messageInput && messageInput.value || "").trim()
+      };
 
-      if (!name || !email || !message) {
+      if (!entry.name || !entry.email || !entry.message) {
         showStatus("Please fill in your name, email, and message.", true);
         return;
       }
 
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(entry.email)) {
         showStatus("Please enter a valid email address.", true);
         return;
       }
@@ -260,24 +335,36 @@
       }
       if (statusEl) statusEl.hidden = true;
 
-      fetch(API_BASE + "/api/submissions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name, email: email, message: message })
-      })
-        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
-        .then(function (res) {
-          if (!res.ok) throw new Error(res.data.error || "Failed to send");
-          showStatus("Message sent successfully! We'll get back to you within 24 hours.", false);
-          form.reset();
-        })
+      var saved = false;
+      var emailed = false;
+
+      saveToApi(entry)
+        .then(function () { saved = true; })
+        .catch(function () { saved = false; });
+
+      sendEmailJs(entry)
+        .then(function () { emailed = true; })
         .catch(function () {
-          showStatus("Something went wrong. Please try again or email us directly.", true);
+          return sendFormSubmit(entry).then(function () { emailed = true; });
         })
         .finally(function () {
           if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = origText;
+          }
+          if (emailed || saved) {
+            showStatus(
+              emailed
+                ? "Message sent successfully! We'll get back to you within 24 hours."
+                : "Message saved. Email delivery had an issue — we'll still review your submission.",
+              false
+            );
+            form.reset();
+          } else {
+            showStatus(
+              "Could not send. Please email " + NOTIFY_EMAIL + " directly.",
+              true
+            );
           }
         });
     });

@@ -13,7 +13,8 @@ import {
   clearSubmissions,
   getEmailSettings,
   updateEmailSettings,
-  newSubmissionId
+  newSubmissionId,
+  getStorageMode
 } from './lib/store.js';
 import { sendNotificationEmail } from './lib/email.js';
 
@@ -25,7 +26,7 @@ app.use(cors({ origin: true }));
 app.use(express.json({ limit: '100kb' }));
 
 app.get('/api/health', (_req, res) => {
-  res.json({ ok: true, service: 'market-maker-agency-api', storage: 'supabase' });
+  res.json({ ok: true, service: 'market-maker-agency-api', storage: getStorageMode() });
 });
 
 app.post('/api/auth/login', async (req, res) => {
