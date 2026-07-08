@@ -23,10 +23,52 @@
   function fillRow(id, arr) {
     var el = document.getElementById(id);
     if (!el) return;
-    var html = arr.map(tcard).join("");
-    el.innerHTML = html + html; // duplicate for seamless loop
+    el.innerHTML = arr.map(tcard).join("");
   }
-  fillRow("tRow1", testimonials);
+
+  function initTestimonialsCarousel() {
+    var track = document.getElementById("tRow1");
+    var prevBtn = document.getElementById("tPrev");
+    var nextBtn = document.getElementById("tNext");
+    if (!track || !prevBtn || !nextBtn) return;
+
+    fillRow("tRow1", testimonials);
+
+    var index = 0;
+    var cards = track.querySelectorAll(".tcard");
+    var viewport = track.parentElement;
+    var gap = 22;
+
+    function sizeCards() {
+      var w = viewport.clientWidth;
+      for (var i = 0; i < cards.length; i++) {
+        cards[i].style.width = w + "px";
+        cards[i].style.minWidth = w + "px";
+        cards[i].style.flexBasis = w + "px";
+      }
+    }
+
+    function slide() {
+      if (!cards.length) return;
+      sizeCards();
+      track.style.transform = "translateX(-" + (index * (viewport.clientWidth + gap)) + "px)";
+    }
+
+    prevBtn.addEventListener("click", function () {
+      index = (index - 1 + cards.length) % cards.length;
+      slide();
+    });
+
+    nextBtn.addEventListener("click", function () {
+      index = (index + 1) % cards.length;
+      slide();
+    });
+
+    window.addEventListener("resize", slide);
+    slide();
+  }
+
+  initTestimonialsCarousel();
 
   /* ---------- Scroll reveal ---------- */
   var io = new IntersectionObserver(function (entries) {

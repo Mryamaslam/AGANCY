@@ -193,9 +193,52 @@ svg { display: block; }
 .anim-spin-slow svg { animation: spin 9s linear infinite; transform-origin: center; }
 
 /* ============ Testimonials ============ */
-.marquee-cards .marquee-track { gap: 22px; animation-duration: 42s; padding: 14px 11px; }
-.marquee-cards.reverse .marquee-track { animation-direction: reverse; }
-.tcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; width: 360px; flex: 0 0 auto; }
+.testimonials-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 12px;
+}
+.testimonials-viewport {
+  overflow: hidden;
+  flex: 1;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+.testimonials-track {
+  display: flex;
+  gap: 22px;
+  transition: transform .45s var(--ease);
+  will-change: transform;
+}
+.t-arrow {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--card);
+  color: #fff;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform .25s var(--ease), background .25s, border-color .25s, box-shadow .25s;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+}
+.t-arrow:hover {
+  transform: translateY(-2px);
+  background: var(--card-2);
+  border-color: var(--brand);
+  box-shadow: 0 14px 36px rgba(155, 92, 255, .22);
+}
+.t-arrow:active { transform: translateY(0); }
+.tcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; flex: 0 0 auto; box-sizing: border-box; }
 .tcard p { color: #ded7ee; font-size: 15px; }
 .tcard .who { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
 .tcard .who .avatar { width: 42px; height: 42px; font-size: 14px; }
@@ -547,7 +590,9 @@ svg { display: block; }
   .nav-links a { padding: 13px 0; border-bottom: 1px solid var(--border); }
   .grid-3, .grid-2 { grid-template-columns: 1fr; }
   .footer-cols { grid-template-columns: 1fr 1fr; }
-  .tcard { width: 300px; }
+  .tcard { padding: 20px; }
+  .testimonials-carousel { gap: 10px; padding: 0 4px; }
+  .t-arrow { width: 44px; height: 44px; font-size: 26px; }
   .meta-preview-grid { grid-template-columns: 1fr; }
   .tool-dashboard-grid { grid-template-columns: 1fr; }
   .tool-dashboard-card img,
