@@ -212,8 +212,13 @@ svg { display: block; }
 .testimonials-track {
   display: flex;
   gap: 22px;
+  width: max-content;
   transition: transform .45s var(--ease);
   will-change: transform;
+  animation: none !important;
+}
+.testimonials-carousel #tRow1 {
+  animation: none !important;
 }
 .t-arrow {
   flex: 0 0 auto;

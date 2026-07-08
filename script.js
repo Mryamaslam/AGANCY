@@ -33,6 +33,8 @@
     if (!track || !prevBtn || !nextBtn) return;
 
     fillRow("tRow1", testimonials);
+    track.classList.remove("marquee-track");
+    track.style.animation = "none";
 
     var index = 0;
     var cards = track.querySelectorAll(".tcard");
@@ -41,6 +43,7 @@
 
     function sizeCards() {
       var w = viewport.clientWidth;
+      if (!w) return;
       for (var i = 0; i < cards.length; i++) {
         cards[i].style.width = w + "px";
         cards[i].style.minWidth = w + "px";
@@ -51,7 +54,9 @@
     function slide() {
       if (!cards.length) return;
       sizeCards();
-      track.style.transform = "translateX(-" + (index * (viewport.clientWidth + gap)) + "px)";
+      var w = viewport.clientWidth;
+      if (!w) return;
+      track.style.transform = "translate3d(-" + (index * (w + gap)) + "px, 0, 0)";
     }
 
     prevBtn.addEventListener("click", function () {
@@ -64,8 +69,17 @@
       slide();
     });
 
-    window.addEventListener("resize", slide);
-    slide();
+    function refreshCarousel() {
+      slide();
+    }
+
+    window.addEventListener("resize", refreshCarousel);
+    window.addEventListener("load", refreshCarousel);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(refreshCarousel);
+    }
+    requestAnimationFrame(refreshCarousel);
+    setTimeout(refreshCarousel, 120);
   }
 
   initTestimonialsCarousel();
