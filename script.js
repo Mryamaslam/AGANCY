@@ -30,46 +30,93 @@
     var track = document.getElementById("tRow1");
     var prevBtn = document.getElementById("tPrev");
     var nextBtn = document.getElementById("tNext");
-    if (!track || !prevBtn || !nextBtn) return;
+    var carousel = document.querySelector(".testimonials-carousel");
+    if (!track || !prevBtn || !nextBtn || !carousel) return;
 
     fillRow("tRow1", testimonials);
-    track.classList.remove("marquee-track");
-    track.style.animation = "none";
 
     var index = 0;
     var cards = track.querySelectorAll(".tcard");
     var viewport = track.parentElement;
     var gap = 22;
+    var autoplayMs = 4200;
+    var autoplayTimer = null;
+
+    function getVisibleCount() {
+      if (window.innerWidth <= 760) return 1;
+      if (window.innerWidth <= 980) return 2;
+      return 3;
+    }
+
+    function getCardWidth() {
+      var visible = getVisibleCount();
+      var w = viewport.clientWidth;
+      if (!w) return 0;
+      return (w - gap * (visible - 1)) / visible;
+    }
+
+    function getMaxIndex() {
+      return Math.max(0, cards.length - getVisibleCount());
+    }
 
     function sizeCards() {
-      var w = viewport.clientWidth;
-      if (!w) return;
+      var cardW = getCardWidth();
+      if (!cardW) return;
       for (var i = 0; i < cards.length; i++) {
-        cards[i].style.width = w + "px";
-        cards[i].style.minWidth = w + "px";
-        cards[i].style.flexBasis = w + "px";
+        cards[i].style.width = cardW + "px";
+        cards[i].style.minWidth = cardW + "px";
+        cards[i].style.flexBasis = cardW + "px";
       }
     }
 
     function slide() {
       if (!cards.length) return;
       sizeCards();
-      var w = viewport.clientWidth;
-      if (!w) return;
-      track.style.transform = "translate3d(-" + (index * (w + gap)) + "px, 0, 0)";
+      var cardW = getCardWidth();
+      if (!cardW) return;
+      if (index > getMaxIndex()) index = 0;
+      track.style.transform = "translate3d(-" + (index * (cardW + gap)) + "px, 0, 0)";
+    }
+
+    function goNext() {
+      var maxIndex = getMaxIndex();
+      index = index >= maxIndex ? 0 : index + 1;
+      slide();
+    }
+
+    function goPrev() {
+      var maxIndex = getMaxIndex();
+      index = index <= 0 ? maxIndex : index - 1;
+      slide();
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      autoplayTimer = window.setInterval(goNext, autoplayMs);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) {
+        window.clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
     }
 
     prevBtn.addEventListener("click", function () {
-      index = (index - 1 + cards.length) % cards.length;
-      slide();
+      goPrev();
+      startAutoplay();
     });
 
     nextBtn.addEventListener("click", function () {
-      index = (index + 1) % cards.length;
-      slide();
+      goNext();
+      startAutoplay();
     });
 
+    carousel.addEventListener("mouseenter", stopAutoplay);
+    carousel.addEventListener("mouseleave", startAutoplay);
+
     function refreshCarousel() {
+      if (index > getMaxIndex()) index = getMaxIndex();
       slide();
     }
 
@@ -80,6 +127,7 @@
     }
     requestAnimationFrame(refreshCarousel);
     setTimeout(refreshCarousel, 120);
+    startAutoplay();
   }
 
   initTestimonialsCarousel();

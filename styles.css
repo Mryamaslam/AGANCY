@@ -198,7 +198,7 @@ svg { display: block; }
   display: flex;
   align-items: center;
   gap: 16px;
-  max-width: 920px;
+  max-width: 1180px;
   margin: 0 auto;
   padding: 0 12px;
 }
@@ -206,19 +206,13 @@ svg { display: block; }
   overflow: hidden;
   flex: 1;
   width: 100%;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
 }
 .testimonials-track {
   display: flex;
   gap: 22px;
   width: max-content;
-  transition: transform .45s var(--ease);
+  transition: transform .55s var(--ease);
   will-change: transform;
-  animation: none !important;
-}
-.testimonials-carousel #tRow1 {
-  animation: none !important;
 }
 .t-arrow {
   flex: 0 0 auto;
