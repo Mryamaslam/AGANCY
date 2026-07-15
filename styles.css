@@ -374,39 +374,53 @@ svg { display: block; }
 .tool-dashboard-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-top: 32px;
+  gap: 20px;
+  margin-top: 28px;
+  align-items: stretch;
 }
 .tool-dashboard-card {
+  display: flex;
+  flex-direction: column;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
   transition: transform .3s, border-color .3s, box-shadow .3s;
+  height: 100%;
 }
 .tool-dashboard-card:hover { transform: translateY(-5px); border-color: var(--border-strong); box-shadow: var(--shadow); }
 .tool-dashboard-card .work-card-img-btn {
   display: block;
   width: 100%;
-  padding: 12px 12px 0;
+  padding: 0;
   border: 0;
-  background: #f4f5f8;
+  background: #0f0a18;
   cursor: zoom-in;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  flex: 0 0 auto;
 }
 .tool-dashboard-card img,
 .tool-dashboard-card .tool-dashboard-img {
   width: 100%;
-  height: auto;
-  min-height: 200px;
-  max-height: 420px;
-  object-fit: contain;
+  height: 100%;
+  min-height: 0;
+  max-height: none;
+  object-fit: cover;
   object-position: center top;
   display: block;
-  background: #fff;
-  border-radius: 8px 8px 0 0;
-  border: 1px solid rgba(0, 0, 0, .06);
+  background: #111;
+  border-radius: 0;
+  border: 0;
 }
-.tool-dashboard-body { padding: 16px 18px 18px; }
+.tool-dashboard-body {
+  padding: 14px 16px 16px;
+  min-height: 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1 0 auto;
+}
 .tool-dashboard-body h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
 .tool-dashboard-body span { color: var(--muted); font-size: 13px; }
 
@@ -581,8 +595,7 @@ svg { display: block; }
   .t-arrow { width: 44px; height: 44px; font-size: 26px; }
   .meta-preview-grid { grid-template-columns: 1fr; }
   .tool-dashboard-grid { grid-template-columns: 1fr; }
-  .tool-dashboard-card img,
-  .tool-dashboard-card .tool-dashboard-img { max-height: 300px; }
+  .tool-dashboard-card .work-card-img-btn { aspect-ratio: 16 / 11; }
   .work-grid { grid-template-columns: 1fr; }
   #contact .contact-cards-row { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
