@@ -390,11 +390,13 @@ svg { display: block; }
 }
 .tool-dashboard-card:hover { transform: translateY(-5px); border-color: var(--border-strong); box-shadow: var(--shadow); }
 .tool-dashboard-card .work-card-img-btn {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  padding: 0;
+  padding: 10px;
   border: 0;
-  background: #0f0a18;
+  background: #f4f5f8;
   cursor: zoom-in;
   aspect-ratio: 16 / 10;
   overflow: hidden;
@@ -406,11 +408,11 @@ svg { display: block; }
   height: 100%;
   min-height: 0;
   max-height: none;
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: center center;
   display: block;
-  background: #111;
-  border-radius: 0;
+  background: #fff;
+  border-radius: 6px;
   border: 0;
 }
 .tool-dashboard-body {
@@ -595,7 +597,7 @@ svg { display: block; }
   .t-arrow { width: 44px; height: 44px; font-size: 26px; }
   .meta-preview-grid { grid-template-columns: 1fr; }
   .tool-dashboard-grid { grid-template-columns: 1fr; }
-  .tool-dashboard-card .work-card-img-btn { aspect-ratio: 16 / 11; }
+  .tool-dashboard-card .work-card-img-btn { aspect-ratio: 16 / 11; padding: 8px; }
   .work-grid { grid-template-columns: 1fr; }
   #contact .contact-cards-row { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
