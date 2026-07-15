@@ -483,8 +483,8 @@ svg { display: block; }
 .contact-card:hover { transform: translateY(-6px); border-color: var(--border-strong); box-shadow: var(--shadow); }
 .contact-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 6px; }
 .contact-card p { color: var(--muted); word-break: break-word; }
-.contact-card .contact-link-text { color: #c9b8ff; text-decoration: underline; text-underline-offset: 3px; }
-.contact-card:hover .contact-link-text { color: #fff; }
+.contact-card .contact-link-text { color: var(--muted); text-decoration: none; }
+.footer-cols span { color: inherit; }
 .contact-card-actions { display: flex; flex-direction: column; gap: 10px; align-items: center; margin: 0; }
 .contact-card-actions a {
   color: #c9b8ff;

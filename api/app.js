@@ -146,7 +146,7 @@ routes.post('/email-settings/test', authMiddleware, async (_req, res) => {
     const result = await sendNotificationEmail(emailSettings, {
       name: 'Admin Test',
       email: 'test@marketmaker.local',
-      message: 'This is a test notification from the Market Maker admin portal.'
+      message: 'This is a test notification from the Market Makers admin portal.'
     });
     if (!result.sent) {
       return res.status(400).json({ error: result.reason || 'Email not sent' });
