@@ -4,49 +4,61 @@
   /* ---------- Testimonials ---------- */
   var testimonials = [
     {
+      p: "Klaviyo Email Setup",
       t: "I had the pleasure of working with Bilal on designing and setting up email templates in Klaviyo for my eCommerce store, and I couldn't be happier with the results.",
-      n: "Upwork Client",
-      r: "Klaviyo Email Template Design & Setup",
-      a: "UC"
+      n: "Daniel R.",
+      r: "eCommerce Store Owner",
+      a: "DR"
     },
     {
+      p: "Cold Email Outreach",
       t: "I've had the pleasure of working with Bilal, and his expertise in cold email outreach is second to none. He knows exactly how to craft compelling emails that get results.",
-      n: "Upwork Client",
-      r: "AI Expert for Personalized Cold Email Campaigns",
-      a: "UC"
+      n: "Helen M.",
+      r: "Marketing Director",
+      a: "HM"
     },
     {
+      p: "LinkedIn Lead Generation",
       t: "Bilal did a solid job managing LinkedIn outreach for my lead generation campaign. He is professional, responsive, and followed instructions well. Messages were personalized and consistent.",
-      n: "Upwork Client",
-      r: "Leads Generation on LinkedIn",
-      a: "UC"
+      n: "Omar S.",
+      r: "B2B Founder",
+      a: "OS"
     },
     {
+      p: "Affiliate Marketing Support",
       t: "Working with Bilal is a sheer joy. He's highly talented, understands the assignment instantly and dives right in with enthusiasm and determination, producing superb results. I hope to work with him many times in the future.",
       n: "Mike Rotter",
-      r: "Midland Hardware Internet Sales LLC",
+      r: "Owner, Midland Hardware Internet Sales LLC",
       a: "MR"
     },
     {
+      p: "Email Marketing Manager",
       t: "Bilal is a joy to work with for both his talent and his enthusiasm. He was extremely knowledgeable and did a fantastic job. He went above and beyond what the contract called for. Excellent landing page builder and delivered on time.",
-      n: "Upwork Client",
-      r: "Email Marketing Manager",
-      a: "UC"
+      n: "Chris P.",
+      r: "Business Owner",
+      a: "CP"
     },
     {
+      p: "Outreach Strategy",
       t: "Bilal has provided consistent support in the execution of our outreach strategy. His professionalism and responsiveness have been valuable to our ongoing efforts. We appreciate his contributions and look forward to continuing the work.",
-      n: "Upwork Client",
-      r: "Personalized Cold Email Campaigns",
-      a: "UC"
+      n: "Laura K.",
+      r: "Growth Lead",
+      a: "LK"
     }
   ];
 
   function tcard(d) {
     return (
       '<div class="tcard">' +
-        '<div class="stars">★★★★★</div>' +
-        '<p>"' + d.t + '"</p>' +
-        '<div class="who"><div class="avatar">' + d.a + '</div><div><b>' + d.n + '</b><span>' + d.r + '</span></div></div>' +
+        '<div class="tcard-top">' +
+          '<span class="tcard-project">' + d.p + '</span>' +
+          '<div class="stars" aria-label="5 star rating">★★★★★</div>' +
+        '</div>' +
+        '<p class="tcard-quote">"' + d.t + '"</p>' +
+        '<div class="who">' +
+          '<div class="avatar">' + d.a + '</div>' +
+          '<div><b>' + d.n + '</b><span>' + d.r + '</span></div>' +
+        '</div>' +
       '</div>'
     );
   }

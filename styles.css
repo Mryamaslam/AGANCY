@@ -224,13 +224,60 @@ svg { display: block; }
   box-shadow: 0 14px 36px rgba(155, 92, 255, .22);
 }
 .t-arrow:active { transform: translateY(0); }
-.tcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; flex: 0 0 auto; box-sizing: border-box; }
-.tcard p { color: #ded7ee; font-size: 15px; }
-.tcard .who { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+.tcard {
+  background: linear-gradient(180deg, rgba(34, 28, 52, .95), rgba(22, 18, 36, .98));
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 26px 24px 22px;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .28);
+}
+.tcard-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.tcard-project {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #c9a8ff;
+  background: rgba(155, 92, 255, .14);
+  border: 1px solid rgba(155, 92, 255, .28);
+  border-radius: 999px;
+  padding: 5px 10px;
+  white-space: nowrap;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tcard .stars { color: #ffb400; letter-spacing: 2px; font-size: 13px; flex: 0 0 auto; }
+.tcard-quote {
+  color: #f0ebfa;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 0;
+  flex: 1 1 auto;
+}
+.tcard .who {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
 .tcard .who .avatar { width: 42px; height: 42px; font-size: 14px; }
 .tcard .who b { display: block; font-size: 15px; color: #fff; }
-.tcard .who span { font-size: 13px; color: var(--muted); }
-.stars { color: #ffb400; letter-spacing: 2px; font-size: 14px; }
+.tcard .who span { font-size: 13px; color: var(--muted); line-height: 1.35; }
 
 /* ============ Pricing ============ */
 .pricing-grid { max-width: 880px; margin: 0 auto; }
