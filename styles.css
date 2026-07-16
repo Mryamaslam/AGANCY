@@ -247,7 +247,7 @@ svg { display: block; }
 }
 .tcard-project {
   display: inline-block;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: .04em;
   text-transform: uppercase;
@@ -256,10 +256,9 @@ svg { display: block; }
   border: 1px solid rgba(155, 92, 255, .28);
   border-radius: 999px;
   padding: 5px 10px;
-  white-space: nowrap;
-  max-width: 70%;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.3;
+  max-width: calc(100% - 72px);
+  white-space: normal;
 }
 .tcard .stars { color: #ffb400; letter-spacing: 2px; font-size: 13px; flex: 0 0 auto; }
 .tcard-quote {
@@ -272,14 +271,23 @@ svg { display: block; }
 .tcard .who {
   display: flex;
   align-items: flex-start;
+  justify-content: flex-start;
   gap: 12px;
   margin-top: auto;
-  padding-top: 20px;
-  padding-bottom: 8px;
+  margin-left: 0;
+  padding: 20px 0 8px;
   border-top: 1px solid rgba(255, 255, 255, .08);
   min-height: 72px;
+  width: 100%;
 }
-.tcard .who .avatar { width: 42px; height: 42px; font-size: 14px; flex: 0 0 auto; margin-top: 2px; }
+.tcard .who .avatar {
+  width: 42px;
+  height: 42px;
+  font-size: 14px;
+  flex: 0 0 auto;
+  margin: 2px 0 0;
+}
+.tcard .who > div { min-width: 0; text-align: left; }
 .tcard .who b { display: block; font-size: 15px; color: #fff; margin-bottom: 4px; }
 .tcard .who span { display: block; font-size: 13px; color: var(--muted); line-height: 1.45; }
 
