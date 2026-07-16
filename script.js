@@ -28,7 +28,7 @@
       p: "Affiliate Marketing Support",
       t: "Working with Bilal is a sheer joy. He's highly talented, understands the assignment instantly and dives right in with enthusiasm and determination, producing superb results. I hope to work with him many times in the future.",
       n: "Mike Rotter",
-      r: "Owner, Midland Hardware Internet Sales LLC",
+      r: "Owner, Midland Hardware",
       a: "MR"
     },
     {
@@ -104,10 +104,19 @@
     function sizeCards() {
       var cardW = getCardWidth();
       if (!cardW) return;
-      for (var i = 0; i < cards.length; i++) {
+      var i;
+      for (i = 0; i < cards.length; i++) {
         cards[i].style.width = cardW + "px";
         cards[i].style.minWidth = cardW + "px";
         cards[i].style.flexBasis = cardW + "px";
+        cards[i].style.height = "auto";
+      }
+      var maxH = 0;
+      for (i = 0; i < cards.length; i++) {
+        if (cards[i].offsetHeight > maxH) maxH = cards[i].offsetHeight;
+      }
+      for (i = 0; i < cards.length; i++) {
+        cards[i].style.height = maxH + "px";
       }
     }
 
