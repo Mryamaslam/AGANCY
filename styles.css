@@ -567,6 +567,11 @@ svg { display: block; }
   gap: 16px;
   margin-top: 36px;
 }
+.ai-projects-carousel.is-static .t-arrow,
+.web-projects-carousel.is-static .t-arrow,
+.dashboards-carousel.is-static .t-arrow {
+  display: none !important;
+}
 .ai-projects-viewport {
   overflow: hidden;
   flex: 1;

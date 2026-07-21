@@ -191,9 +191,14 @@
     var carousel = document.querySelector(opts.carouselSel);
     if (!track || !prevBtn || !nextBtn || !carousel) return;
 
-    var originals = Array.prototype.slice.call(track.querySelectorAll(opts.cardSel));
+    var originals = Array.prototype.slice.call(
+      track.querySelectorAll(opts.cardSel + ":not(.is-clone)")
+    );
+    if (!originals.length) {
+      originals = Array.prototype.slice.call(track.querySelectorAll(opts.cardSel));
+    }
     var total = originals.length;
-    if (total < 2) return;
+    if (total < 1) return;
 
     var gap = opts.gap || 22;
     var index = 0;
@@ -207,10 +212,17 @@
       return 3;
     }
 
+    function needsSlide() {
+      return total > getVisibleCount();
+    }
+
     function rebuildClones() {
       track.querySelectorAll(opts.cardSel + ".is-clone").forEach(function (el) {
         el.parentNode.removeChild(el);
       });
+      // Only clone when there are more cards than fit on screen —
+      // otherwise clones look like duplicates (e.g. 3 AI cards + 3 clones).
+      if (!needsSlide()) return;
       var visible = getVisibleCount();
       var cloneCount = Math.min(visible, total);
       var i;
@@ -218,6 +230,7 @@
         var clone = originals[i].cloneNode(true);
         clone.classList.add("is-clone");
         clone.setAttribute("aria-hidden", "true");
+        clone.tabIndex = -1;
         track.appendChild(clone);
       }
     }
@@ -227,7 +240,7 @@
     }
 
     function getCardWidth() {
-      var visible = getVisibleCount();
+      var visible = Math.min(getVisibleCount(), total);
       var viewport = track.parentElement;
       var w = viewport.clientWidth;
       if (!w) return 0;
@@ -257,6 +270,14 @@
     function applyTransform(animate) {
       var cardW = getCardWidth();
       if (!cardW) return;
+      if (!needsSlide()) {
+        index = 0;
+        track.classList.add("is-resetting");
+        track.style.transform = "translate3d(0, 0, 0)";
+        void track.offsetHeight;
+        track.classList.remove("is-resetting");
+        return;
+      }
       if (!animate) track.classList.add("is-resetting");
       else track.classList.remove("is-resetting");
       track.style.transform = "translate3d(-" + (index * (cardW + gap)) + "px, 0, 0)";
@@ -271,8 +292,16 @@
       applyTransform(animate !== false);
     }
 
+    function updateChrome() {
+      var show = needsSlide();
+      prevBtn.style.display = show ? "" : "none";
+      nextBtn.style.display = show ? "" : "none";
+      carousel.classList.toggle("is-static", !show);
+      if (!show) stopAutoplay();
+    }
+
     function goNext() {
-      if (animating) return;
+      if (!needsSlide() || animating) return;
       animating = true;
       index += 1;
       slide(true);
@@ -286,7 +315,7 @@
     }
 
     function goPrev() {
-      if (animating) return;
+      if (!needsSlide() || animating) return;
       if (index <= 0) {
         index = total;
         slide(false);
@@ -301,6 +330,7 @@
 
     function startAutoplay() {
       stopAutoplay();
+      if (!needsSlide()) return;
       autoplayTimer = window.setInterval(goNext, autoplayMs);
     }
 
@@ -325,8 +355,11 @@
     function refresh() {
       var was = index;
       rebuildClones();
-      if (was >= total) index = 0;
+      updateChrome();
+      if (!needsSlide() || was >= total) index = 0;
       slide(false);
+      if (needsSlide()) startAutoplay();
+      else stopAutoplay();
     }
 
     window.addEventListener("resize", refresh);
@@ -334,7 +367,6 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh);
     requestAnimationFrame(refresh);
     setTimeout(refresh, 120);
-    startAutoplay();
   }
 
   initStepCarousel({
