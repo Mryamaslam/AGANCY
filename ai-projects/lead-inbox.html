@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lead Inbox AI | Market Makers</title>
-  <meta name="description" content="AI lead routing demo: form submit → score → CRM → Slack/WhatsApp in under 2 minutes." />
+  <meta name="description" content="Simple demo: website leads get answered fast — no tech jargon." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="ai-demo.css" />
@@ -14,96 +14,92 @@
     <div class="wrap inner">
       <a class="brand" href="../index.html">Market <b>Makers</b></a>
       <div class="links">
-        <a class="active" href="lead-inbox.html">Lead Inbox AI</a>
-        <a href="reply-copilot.html">Reply Copilot</a>
-        <a href="linkedin-crm.html">LinkedIn → CRM</a>
-        <a href="../index.html#ai-projects">All AI projects</a>
+        <a class="active" href="lead-inbox.html">1. Fast Lead Reply</a>
+        <a href="reply-copilot.html">2. Email Reply Helper</a>
+        <a href="linkedin-crm.html">3. LinkedIn Save</a>
+        <a href="../index.html#ai-projects">All demos</a>
       </div>
     </div>
   </header>
 
   <section class="demo-hero">
     <div class="wrap">
-      <span class="eyebrow">AI Automation · Demo 01</span>
-      <h1>Lead Inbox <span class="grad">AI</span></h1>
-      <p class="lead">Form and email leads scored, routed, and alerted automatically — so sales never digs through a messy inbox.</p>
-      <div class="meta-row">
-        <span class="pill">Make.com / n8n</span>
-        <span class="pill">OpenAI</span>
-        <span class="pill">HubSpot</span>
-        <span class="pill">Slack · WhatsApp</span>
-      </div>
+      <span class="eyebrow">Demo 1 of 3 · Easy explanation</span>
+      <h1>Website pe lead aaye — <span class="grad">2 minute mein reply</span></h1>
+      <p class="lead">Koi aapka form bharta hai (raat ko bhi). System khud check karta hai ye serious buyer hai ya nahi, aur aapki team ko message bhej deta hai.</p>
     </div>
   </section>
 
   <main class="wrap">
     <div class="grid-2">
       <div class="panel">
-        <h2>Problem</h2>
-        <p class="problem-box">Weekend and after-hours form fills go cold. Reps waste time on tire-kickers while hot buyers wait hours for a first reply.</p>
+        <h2>Pehle kya hota tha?</h2>
+        <p class="problem-box">Form bharne wala wait karta rehta. Team subah inbox kholti — kabhi kabhi 1 din late. Hot buyer thandha ho jata.</p>
       </div>
       <div class="panel">
-        <h2>Result</h2>
+        <h2>Ab kya hota hai?</h2>
         <div class="result-box">
-          <strong>&lt; 2 min</strong>
-          <span>First response SLA on hot leads · owners auto-assigned</span>
+          <strong>2 minute</strong>
+          <span>Andar serious lead pe team ko alert mil jata hai</span>
         </div>
       </div>
     </div>
 
     <div class="panel">
-      <h2>Workflow</h2>
+      <h2>3 simple steps</h2>
       <ol class="steps">
         <li>
           <span class="n">1</span>
           <div>
-            <strong>Capture</strong>
-            <p>Website form, Calendly, or shared inbox hits a webhook.</p>
+            <strong>Lead aati hai</strong>
+            <p>Koi naam, email, message form pe likhta hai.</p>
           </div>
         </li>
         <li>
           <span class="n">2</span>
           <div>
-            <strong>Score &amp; classify</strong>
-            <p>AI checks ICP fit, urgency, and budget signals → Hot / Warm / Nurture.</p>
+            <strong>AI padhti hai</strong>
+            <p>“Ye buyer lagta hai?” — Haan / Maybe / Nahi. Score de deti hai.</p>
           </div>
         </li>
         <li>
           <span class="n">3</span>
           <div>
-            <strong>Route &amp; alert</strong>
-            <p>CRM deal created, owner assigned, Slack + WhatsApp ping with context.</p>
+            <strong>Team ko bata deti hai</strong>
+            <p>WhatsApp / Slack pe: “Sarah ne demo manga — jaldi call karo.”</p>
           </div>
         </li>
       </ol>
-      <div class="stack-pills">
-        <span>Webhook</span><span>GPT classify</span><span>HubSpot</span><span>Slack</span><span>WhatsApp</span>
-      </div>
     </div>
 
     <div class="demo-stage">
       <div class="stage-head">
-        <h2>Live run (sample)</h2>
-        <button type="button" class="btn btn-primary" id="runLeadDemo">Run lead →</button>
+        <h2>Example dekho (button dabao)</h2>
+        <button type="button" class="btn btn-primary" id="runLeadDemo">Example chalao →</button>
       </div>
       <div class="grid-2">
         <div>
-          <h3>Pipeline log</h3>
-          <div class="log" id="leadLog"><div class="line" style="opacity:.5">> Waiting for run…</div></div>
+          <h3>Kya ho raha hai</h3>
+          <div class="log" id="leadLog"><div class="line" style="opacity:.5">Button dabao — yahan steps dikhengi…</div></div>
         </div>
         <div>
-          <h3>Output card</h3>
-          <div id="leadOut"><p class="muted" style="font-size:14px">Click “Run lead” to simulate a scored, routed contact.</p></div>
+          <h3>Team ko kya dikhega</h3>
+          <div id="leadOut"><p class="muted" style="font-size:14px">Yahan ek ready lead card banegi.</p></div>
         </div>
       </div>
+    </div>
+
+    <div class="panel">
+      <h2>Ek line mein</h2>
+      <p class="muted" style="font-size:16px;color:var(--ink)">Jaise receptionist raat ko bhi phone uthaye — bas ye computer karta hai, form ke liye.</p>
     </div>
   </main>
 
   <section class="cta-band">
-    <h2>Want this on your pipeline?</h2>
-    <p>We wire Lead Inbox AI to your forms, CRM, and alerts in days — not months.</p>
-    <a class="btn btn-primary" href="../index.html#contact">Automate my pipeline →</a>
-    <a class="btn btn-ghost" href="reply-copilot.html" style="margin-left:10px">Next: Reply Copilot</a>
+    <h2>Aapke business pe laga sakte hain</h2>
+    <p>Form → alert → team. Bina mushkil jargon ke setup.</p>
+    <a class="btn btn-primary" href="../index.html#contact">Mujhe ye chahiye →</a>
+    <a class="btn btn-ghost" href="reply-copilot.html" style="margin-left:10px">Agli demo →</a>
   </section>
   <script src="ai-demo.js"></script>
 </body>

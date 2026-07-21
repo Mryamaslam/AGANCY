@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>LinkedIn → CRM Sync | Market Makers</title>
-  <meta name="description" content="Accepted LinkedIn connections enriched and synced to HubSpot with Day-0 follow-up tasks." />
+  <title>LinkedIn Save | Market Makers</title>
+  <meta name="description" content="Simple demo: LinkedIn connections auto-save so you never forget follow-up." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="ai-demo.css" />
@@ -14,96 +14,92 @@
     <div class="wrap inner">
       <a class="brand" href="../index.html">Market <b>Makers</b></a>
       <div class="links">
-        <a href="lead-inbox.html">Lead Inbox AI</a>
-        <a href="reply-copilot.html">Reply Copilot</a>
-        <a class="active" href="linkedin-crm.html">LinkedIn → CRM</a>
-        <a href="../index.html#ai-projects">All AI projects</a>
+        <a href="lead-inbox.html">1. Fast Lead Reply</a>
+        <a href="reply-copilot.html">2. Email Reply Helper</a>
+        <a class="active" href="linkedin-crm.html">3. LinkedIn Save</a>
+        <a href="../index.html#ai-projects">All demos</a>
       </div>
     </div>
   </header>
 
   <section class="demo-hero">
     <div class="wrap">
-      <span class="eyebrow">AI Automation · Demo 03</span>
-      <h1>LinkedIn → <span class="grad">CRM Sync</span></h1>
-      <p class="lead">New connections and replies land in HubSpot with ICP tags and a Day-0 task — so LinkedIn outreach doesn’t die in the inbox.</p>
-      <div class="meta-row">
-        <span class="pill">Sales Navigator</span>
-        <span class="pill">Make.com</span>
-        <span class="pill">HubSpot</span>
-        <span class="pill">OpenAI</span>
-      </div>
+      <span class="eyebrow">Demo 3 of 3 · Easy explanation</span>
+      <h1>LinkedIn pe connection — <span class="grad">list mein save</span></h1>
+      <p class="lead">Koi aapki request accept kare to naam Excel/CRM mein khud save ho jaye, aur reminder: “Aaj message bhejo.”</p>
     </div>
   </section>
 
   <main class="wrap">
     <div class="grid-2">
       <div class="panel">
-        <h2>Problem</h2>
-        <p class="problem-box">Accepts pile up. Nobody copies profiles into the CRM. Follow-ups slip, and warm LinkedIn conversations go cold.</p>
+        <h2>Pehle kya hota tha?</h2>
+        <p class="problem-box">50 log accept karte. Aap bhool jate. Baad mein sochte “kis ko message dena tha?” — deal nikal jati.</p>
       </div>
       <div class="panel">
-        <h2>Result</h2>
+        <h2>Ab kya hota hai?</h2>
         <div class="result-box">
-          <strong>0 manual entry</strong>
-          <span>Contact + sequence + task created on every accept</span>
+          <strong>Auto save</strong>
+          <span>Har nayi connection list + reminder ke sath</span>
         </div>
       </div>
     </div>
 
     <div class="panel">
-      <h2>Workflow</h2>
+      <h2>3 simple steps</h2>
       <ol class="steps">
         <li>
           <span class="n">1</span>
           <div>
-            <strong>Listen</strong>
-            <p>Connection accepted or reply event triggers the workflow.</p>
+            <strong>Accept hota hai</strong>
+            <p>LinkedIn pe koi aapko accept karta hai.</p>
           </div>
         </li>
         <li>
           <span class="n">2</span>
           <div>
-            <strong>Enrich</strong>
-            <p>Title, company, and ICP tags filled; AI writes a short personalization note.</p>
+            <strong>Details nikal aati hain</strong>
+            <p>Naam, company, job title — list mein likh jati hain.</p>
           </div>
         </li>
         <li>
           <span class="n">3</span>
           <div>
-            <strong>Sync &amp; task</strong>
-            <p>HubSpot contact + “LI Warm” enroll + Day-0 DM task for the owner.</p>
+            <strong>Reminder milta hai</strong>
+            <p>“Daniel ko aaj short message bhejo” — task aapki list pe.</p>
           </div>
         </li>
       </ol>
-      <div class="stack-pills">
-        <span>LinkedIn</span><span>Enrich</span><span>HubSpot</span><span>Task queue</span>
-      </div>
     </div>
 
     <div class="demo-stage">
       <div class="stage-head">
-        <h2>Live run (sample)</h2>
-        <button type="button" class="btn btn-primary" id="runLiDemo">Sync connection →</button>
+        <h2>Example dekho (button dabao)</h2>
+        <button type="button" class="btn btn-primary" id="runLiDemo">Example chalao →</button>
       </div>
       <div class="grid-2">
         <div>
-          <h3>Pipeline log</h3>
-          <div class="log" id="liLog"><div class="line" style="opacity:.5">> Waiting for run…</div></div>
+          <h3>Kya ho raha hai</h3>
+          <div class="log" id="liLog"><div class="line" style="opacity:.5">Button dabao — yahan steps dikhengi…</div></div>
         </div>
         <div>
-          <h3>CRM card</h3>
-          <div id="liFeed"><p class="muted" style="font-size:14px">Click “Sync connection” to simulate accept → CRM.</p></div>
+          <h3>Aapki list pe kya dikhega</h3>
+          <div id="liFeed"><p class="muted" style="font-size:14px">Yahan saved contact + reminder card banega.</p></div>
         </div>
       </div>
+    </div>
+
+    <div class="panel">
+      <h2>Ek line mein</h2>
+      <p class="muted" style="font-size:16px;color:var(--ink)">Jaise notebook mein har naye milne wale ka number turant likh lo — bas ye apne aap likhta hai.</p>
     </div>
   </main>
 
   <section class="cta-band">
-    <h2>Connect LinkedIn to your CRM</h2>
-    <p>We build the same ops layer we use on client LinkedIn programs.</p>
-    <a class="btn btn-primary" href="../index.html#contact">Automate my pipeline →</a>
-    <a class="btn btn-ghost" href="../index.html#ai-projects" style="margin-left:10px">Back to AI projects</a>
+    <h2>Aapke LinkedIn pe laga sakte hain</h2>
+    <p>Connections miss nahi hongi — follow-up yaad rahega.</p>
+    <a class="btn btn-primary" href="../index.html#contact">Mujhe ye chahiye →</a>
+    <a class="btn btn-ghost" href="../index.html#ai-projects" style="margin-left:10px">Wapas AI demos</a>
   </section>
   <script src="ai-demo.js"></script>
 </body>

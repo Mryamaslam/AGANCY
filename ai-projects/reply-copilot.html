@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Outreach Reply Copilot | Market Makers</title>
-  <meta name="description" content="AI sorts Instantly/Smartlead replies into Hot / Warm / Skip and drafts human replies." />
+  <title>Email Reply Helper | Market Makers</title>
+  <meta name="description" content="Simple demo: AI sorts email replies so you only answer real interest." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="ai-demo.css" />
@@ -14,100 +14,96 @@
     <div class="wrap inner">
       <a class="brand" href="../index.html">Market <b>Makers</b></a>
       <div class="links">
-        <a href="lead-inbox.html">Lead Inbox AI</a>
-        <a class="active" href="reply-copilot.html">Reply Copilot</a>
-        <a href="linkedin-crm.html">LinkedIn → CRM</a>
-        <a href="../index.html#ai-projects">All AI projects</a>
+        <a href="lead-inbox.html">1. Fast Lead Reply</a>
+        <a class="active" href="reply-copilot.html">2. Email Reply Helper</a>
+        <a href="linkedin-crm.html">3. LinkedIn Save</a>
+        <a href="../index.html#ai-projects">All demos</a>
       </div>
     </div>
   </header>
 
   <section class="demo-hero">
     <div class="wrap">
-      <span class="eyebrow">AI Automation · Demo 02</span>
-      <h1>Outreach Reply <span class="grad">Copilot</span></h1>
-      <p class="lead">Every Instantly / Smartlead reply tagged by intent, with a ready-to-send draft — so your team only touches what matters.</p>
-      <div class="meta-row">
-        <span class="pill">Instantly.ai</span>
-        <span class="pill">Smartlead</span>
-        <span class="pill">OpenAI</span>
-        <span class="pill">Gmail / Outlook</span>
-      </div>
+      <span class="eyebrow">Demo 2 of 3 · Easy explanation</span>
+      <h1>Email pe 50 replies — <span class="grad">kaun serious hai?</span></h1>
+      <p class="lead">Cold email bhejne ke baad bohot replies aate hain. AI unhe teen dabbon mein rakh deti hai: Jaldi jawab do · Baad mein · Ignore.</p>
     </div>
   </section>
 
   <main class="wrap">
     <div class="grid-2">
       <div class="panel">
-        <h2>Problem</h2>
-        <p class="problem-box">Reply volume spikes after a good campaign. Teams bury interested buyers under OOOs, “not interested,” and wrong-person replies.</p>
+        <h2>Pehle kya hota tha?</h2>
+        <p class="problem-box">Team har email padhti. “Not interested”, “out of office”, aur “call book karo” sab mix. Real buyer miss ho jata.</p>
       </div>
       <div class="panel">
-        <h2>Result</h2>
+        <h2>Ab kya hota hai?</h2>
         <div class="result-box">
-          <strong>3× faster</strong>
-          <span>Triage speed · drafts ready before you open the thread</span>
+          <strong>3× tez</strong>
+          <span>Sirf important emails pe time — baaki AI sort kar deti hai</span>
         </div>
       </div>
     </div>
 
     <div class="panel">
-      <h2>Workflow</h2>
+      <h2>3 simple steps</h2>
       <ol class="steps">
         <li>
           <span class="n">1</span>
           <div>
-            <strong>Ingest replies</strong>
-            <p>New replies sync from Instantly / Smartlead (or mailbox webhook).</p>
+            <strong>Reply aati hai</strong>
+            <p>Koi aapki cold email ka jawab likhta hai.</p>
           </div>
         </li>
         <li>
           <span class="n">2</span>
           <div>
-            <strong>Intent tag</strong>
-            <p>AI labels Hot (book call), Warm (send info), Skip (OOO / unsubscribe / wrong person).</p>
+            <strong>AI sort karti hai</strong>
+            <p><strong>Hot</strong> = call chahiye · <strong>Warm</strong> = info chahiye · <strong>Skip</strong> = nahi / galat banda</p>
           </div>
         </li>
         <li>
           <span class="n">3</span>
           <div>
-            <strong>Draft reply</strong>
-            <p>Human-sounding draft + one-click send path; suppressions applied automatically.</p>
+            <strong>Draft tayyar</strong>
+            <p>Aapke liye jawab likh ke rakhti hai — aap bas check karke bhej do.</p>
           </div>
         </li>
       </ol>
-      <div class="stack-pills">
-        <span>Instantly</span><span>Smartlead</span><span>GPT intent</span><span>Draft reply</span>
-      </div>
     </div>
 
     <div class="demo-stage">
       <div class="stage-head">
-        <h2>Live run (sample inbox)</h2>
-        <button type="button" class="btn btn-primary" id="runReplyDemo">Sort replies →</button>
+        <h2>Example dekho (button dabao)</h2>
+        <button type="button" class="btn btn-primary" id="runReplyDemo">Replies sort karo →</button>
       </div>
       <div class="cols-3">
         <div class="col">
-          <h4><span class="badge badge-hot">Hot</span></h4>
-          <div id="colHot"><p class="muted" style="font-size:12px">Run to fill…</p></div>
+          <h4><span class="badge badge-hot">Hot — jaldi jawab</span></h4>
+          <div id="colHot"><p class="muted" style="font-size:12px">Yahan serious buyers…</p></div>
         </div>
         <div class="col">
-          <h4><span class="badge badge-warm">Warm</span></h4>
-          <div id="colWarm"><p class="muted" style="font-size:12px">Run to fill…</p></div>
+          <h4><span class="badge badge-warm">Warm — baad mein</span></h4>
+          <div id="colWarm"><p class="muted" style="font-size:12px">Yahan “info bhejo”…</p></div>
         </div>
         <div class="col">
-          <h4><span class="badge badge-skip">Skip</span></h4>
-          <div id="colSkip"><p class="muted" style="font-size:12px">Run to fill…</p></div>
+          <h4><span class="badge badge-skip">Skip — ignore</span></h4>
+          <div id="colSkip"><p class="muted" style="font-size:12px">Yahan “unsubscribe”…</p></div>
         </div>
       </div>
+    </div>
+
+    <div class="panel">
+      <h2>Ek line mein</h2>
+      <p class="muted" style="font-size:16px;color:var(--ink)">Jaise assistant inbox saaf karke sirf zaroori emails aapke table pe rakhe.</p>
     </div>
   </main>
 
   <section class="cta-band">
-    <h2>Plug this into your sequences</h2>
-    <p>Same stack you already use for cold email — with AI triage on top.</p>
-    <a class="btn btn-primary" href="../index.html#contact">Automate my pipeline →</a>
-    <a class="btn btn-ghost" href="linkedin-crm.html" style="margin-left:10px">Next: LinkedIn → CRM</a>
+    <h2>Aapke email system pe laga sakte hain</h2>
+    <p>Instantly / Smartlead / Gmail — jo aap use karte ho.</p>
+    <a class="btn btn-primary" href="../index.html#contact">Mujhe ye chahiye →</a>
+    <a class="btn btn-ghost" href="linkedin-crm.html" style="margin-left:10px">Agli demo →</a>
   </section>
   <script src="ai-demo.js"></script>
 </body>
