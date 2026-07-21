@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LinkedIn Save | Market Makers</title>
-  <meta name="description" content="Simple demo: LinkedIn connections auto-save so you never forget follow-up." />
+  <meta name="description" content="Product demo: LinkedIn accepts auto-save to CRM with a same-day follow-up task." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="ai-demo.css" />
@@ -24,37 +24,64 @@
 
   <section class="demo-hero">
     <div class="wrap">
-      <span class="eyebrow">Demo 3 of 3 · Easy explanation</span>
-      <h1>LinkedIn pe connection — <span class="grad">list mein save</span></h1>
-      <p class="lead">Koi aapki request accept kare to naam Excel/CRM mein khud save ho jaye, aur reminder: “Aaj message bhejo.”</p>
+      <span class="eyebrow">AI Automation · Demo 3 of 3</span>
+      <h1>LinkedIn accept → <span class="grad">saved to your list</span></h1>
+      <p class="lead">When someone accepts your connection, their name lands in your CRM automatically — with a reminder to message them today.</p>
     </div>
   </section>
 
   <main class="wrap">
     <div class="video-block">
-      <h2>Video — ye kaise kaam karega</h2>
-      <div class="vplayer" data-video="linkedin">
-        <div class="vplayer-screen"></div>
-        <p class="vplayer-caption"></p>
-        <button type="button" class="vplayer-bigplay" aria-label="Play video"><span>▶</span></button>
-        <div class="vplayer-bar">
-          <button type="button" class="vplay" aria-label="Play">▶</button>
-          <div class="vprogress" aria-hidden="true"><i></i></div>
-          <span class="vtime">1 / 3</span>
-        </div>
+      <h2>Watch how the software works</h2>
+      <div class="real-video">
+        <video controls playsinline preload="metadata" aria-label="LinkedIn Save product demo">
+          <source src="videos/linkedin-crm.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <p class="muted video-note">Product-style walkthrough: accept → CRM save → follow-up task.</p>
+    </div>
+
+    <div class="panel diagram-panel">
+      <h2>Flow diagram</h2>
+      <div class="flow-diagram" aria-hidden="true">
+        <svg viewBox="0 0 960 160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#9b5cff"/><stop offset="100%" stop-color="#c264ff"/>
+            </linearGradient>
+            <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6 Z" fill="#a79fb8"/>
+            </marker>
+          </defs>
+          <rect x="20" y="40" width="180" height="80" rx="14" fill="#170f2a" stroke="#9b5cff" stroke-width="1.5"/>
+          <text x="110" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">LinkedIn accept</text>
+          <text x="110" y="98" text-anchor="middle" fill="#a79fb8" font-size="11" font-family="Inter,sans-serif">New connection</text>
+          <line x1="200" y1="80" x2="250" y2="80" stroke="#a79fb8" stroke-width="2" marker-end="url(#arr3)"/>
+          <rect x="250" y="40" width="170" height="80" rx="14" fill="#170f2a" stroke="#9b5cff" stroke-width="1.5"/>
+          <text x="335" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">Enrich profile</text>
+          <text x="335" y="98" text-anchor="middle" fill="#a79fb8" font-size="11" font-family="Inter,sans-serif">Name · company · title</text>
+          <line x1="420" y1="80" x2="470" y2="80" stroke="#a79fb8" stroke-width="2" marker-end="url(#arr3)"/>
+          <rect x="470" y="40" width="170" height="80" rx="14" fill="#170f2a" stroke="#9b5cff" stroke-width="1.5"/>
+          <text x="555" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">Save to CRM</text>
+          <text x="555" y="98" text-anchor="middle" fill="#a79fb8" font-size="11" font-family="Inter,sans-serif">No copy / paste</text>
+          <line x1="640" y1="80" x2="690" y2="80" stroke="#a79fb8" stroke-width="2" marker-end="url(#arr3)"/>
+          <rect x="690" y="40" width="200" height="80" rx="14" fill="url(#g3)"/>
+          <text x="790" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">Follow-up task</text>
+          <text x="790" y="98" text-anchor="middle" fill="#f0e6ff" font-size="11" font-family="Inter,sans-serif">Message today</text>
+        </svg>
       </div>
     </div>
 
     <div class="grid-2">
       <div class="panel">
-        <h2>Pehle kya hota tha?</h2>
-        <p class="problem-box">50 log accept karte. Aap bhool jate. Baad mein sochte “kis ko message dena tha?” — deal nikal jati.</p>
+        <h2>Before</h2>
+        <p class="problem-box">Dozens of people accept. You forget who. Later you wonder who to message — and the deal is gone.</p>
       </div>
       <div class="panel">
-        <h2>Ab kya hota hai?</h2>
+        <h2>After</h2>
         <div class="result-box">
-          <strong>Auto save</strong>
-          <span>Har nayi connection list + reminder ke sath</span>
+          <strong>Auto-save</strong>
+          <span>Every new connection lands on your list with a reminder</span>
         </div>
       </div>
     </div>
@@ -65,22 +92,22 @@
         <li>
           <span class="n">1</span>
           <div>
-            <strong>Accept hota hai</strong>
-            <p>LinkedIn pe koi aapko accept karta hai.</p>
+            <strong>They accept</strong>
+            <p>Someone accepts your LinkedIn invitation.</p>
           </div>
         </li>
         <li>
           <span class="n">2</span>
           <div>
-            <strong>Details nikal aati hain</strong>
-            <p>Naam, company, job title — list mein likh jati hain.</p>
+            <strong>Details are saved</strong>
+            <p>Name, company, and title go into your CRM / list automatically.</p>
           </div>
         </li>
         <li>
           <span class="n">3</span>
           <div>
-            <strong>Reminder milta hai</strong>
-            <p>“Daniel ko aaj short message bhejo” — task aapki list pe.</p>
+            <strong>You get a reminder</strong>
+            <p>“Message Daniel today” — so the follow-up never slips.</p>
           </div>
         </li>
       </ol>
@@ -88,32 +115,32 @@
 
     <div class="demo-stage">
       <div class="stage-head">
-        <h2>Example dekho (button dabao)</h2>
-        <button type="button" class="btn btn-primary" id="runLiDemo">Example chalao →</button>
+        <h2>Try a live sample</h2>
+        <button type="button" class="btn btn-primary" id="runLiDemo">Run sample →</button>
       </div>
       <div class="grid-2">
         <div>
-          <h3>Kya ho raha hai</h3>
-          <div class="log" id="liLog"><div class="line" style="opacity:.5">Button dabao — yahan steps dikhengi…</div></div>
+          <h3>What the system does</h3>
+          <div class="log" id="liLog"><div class="line" style="opacity:.5">Click Run sample to see the steps…</div></div>
         </div>
         <div>
-          <h3>Aapki list pe kya dikhega</h3>
-          <div id="liFeed"><p class="muted" style="font-size:14px">Yahan saved contact + reminder card banega.</p></div>
+          <h3>What appears on your list</h3>
+          <div id="liFeed"><p class="muted" style="font-size:14px">A saved contact + reminder card will appear here.</p></div>
         </div>
       </div>
     </div>
 
     <div class="panel">
-      <h2>Ek line mein</h2>
-      <p class="muted" style="font-size:16px;color:var(--ink)">Jaise notebook mein har naye milne wale ka number turant likh lo — bas ye apne aap likhta hai.</p>
+      <h2>In one line</h2>
+      <p style="font-size:16px;color:var(--ink)">Like writing every new meeting in a notebook instantly — except the notebook writes itself.</p>
     </div>
   </main>
 
   <section class="cta-band">
-    <h2>Aapke LinkedIn pe laga sakte hain</h2>
-    <p>Connections miss nahi hongi — follow-up yaad rahega.</p>
-    <a class="btn btn-primary" href="../index.html#contact">Mujhe ye chahiye →</a>
-    <a class="btn btn-ghost" href="../index.html#ai-projects" style="margin-left:10px">Wapas AI demos</a>
+    <h2>Connect LinkedIn to your CRM</h2>
+    <p>No more lost accepts. Every connection gets a follow-up.</p>
+    <a class="btn btn-primary" href="../index.html#contact">Automate my pipeline →</a>
+    <a class="btn btn-ghost" href="../index.html#ai-projects" style="margin-left:10px">Back to AI projects</a>
   </section>
   <script src="ai-demo.js"></script>
 </body>

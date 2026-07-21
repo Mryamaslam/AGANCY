@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Email Reply Helper | Market Makers</title>
-  <meta name="description" content="Simple demo: AI sorts email replies so you only answer real interest." />
+  <meta name="description" content="Product demo: AI sorts cold email replies into Hot, Warm, and Skip with ready drafts." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="ai-demo.css" />
@@ -24,37 +24,64 @@
 
   <section class="demo-hero">
     <div class="wrap">
-      <span class="eyebrow">Demo 2 of 3 · Easy explanation</span>
-      <h1>Email pe 50 replies — <span class="grad">kaun serious hai?</span></h1>
-      <p class="lead">Cold email bhejne ke baad bohot replies aate hain. AI unhe teen dabbon mein rakh deti hai: Jaldi jawab do · Baad mein · Ignore.</p>
+      <span class="eyebrow">AI Automation · Demo 2 of 3</span>
+      <h1>50 email replies — <span class="grad">who actually cares?</span></h1>
+      <p class="lead">After a cold email campaign, replies flood in. AI sorts them into three buckets: reply now, nurture later, or ignore — and drafts the answer for you.</p>
     </div>
   </section>
 
   <main class="wrap">
     <div class="video-block">
-      <h2>Video — ye kaise kaam karega</h2>
-      <div class="vplayer" data-video="reply">
-        <div class="vplayer-screen"></div>
-        <p class="vplayer-caption"></p>
-        <button type="button" class="vplayer-bigplay" aria-label="Play video"><span>▶</span></button>
-        <div class="vplayer-bar">
-          <button type="button" class="vplay" aria-label="Play">▶</button>
-          <div class="vprogress" aria-hidden="true"><i></i></div>
-          <span class="vtime">1 / 3</span>
-        </div>
+      <h2>Watch how the software works</h2>
+      <div class="real-video">
+        <video controls playsinline preload="metadata" aria-label="Email Reply Helper product demo">
+          <source src="videos/reply-copilot.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <p class="muted video-note">Product-style walkthrough: inbox → sort → draft.</p>
+    </div>
+
+    <div class="panel diagram-panel">
+      <h2>Flow diagram</h2>
+      <div class="flow-diagram" aria-hidden="true">
+        <svg viewBox="0 0 960 160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#9b5cff"/><stop offset="100%" stop-color="#c264ff"/>
+            </linearGradient>
+            <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6 Z" fill="#a79fb8"/>
+            </marker>
+          </defs>
+          <rect x="20" y="40" width="170" height="80" rx="14" fill="#170f2a" stroke="#9b5cff" stroke-width="1.5"/>
+          <text x="105" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">Email replies</text>
+          <text x="105" y="98" text-anchor="middle" fill="#a79fb8" font-size="11" font-family="Inter,sans-serif">Instantly / Smartlead</text>
+          <line x1="190" y1="80" x2="240" y2="80" stroke="#a79fb8" stroke-width="2" marker-end="url(#arr2)"/>
+          <rect x="240" y="40" width="170" height="80" rx="14" fill="#170f2a" stroke="#9b5cff" stroke-width="1.5"/>
+          <text x="325" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">AI sorts</text>
+          <text x="325" y="98" text-anchor="middle" fill="#a79fb8" font-size="11" font-family="Inter,sans-serif">Hot · Warm · Skip</text>
+          <line x1="410" y1="80" x2="460" y2="80" stroke="#a79fb8" stroke-width="2" marker-end="url(#arr2)"/>
+          <rect x="460" y="40" width="170" height="80" rx="14" fill="#170f2a" stroke="#9b5cff" stroke-width="1.5"/>
+          <text x="545" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">Draft reply</text>
+          <text x="545" y="98" text-anchor="middle" fill="#a79fb8" font-size="11" font-family="Inter,sans-serif">Ready to send</text>
+          <line x1="630" y1="80" x2="680" y2="80" stroke="#a79fb8" stroke-width="2" marker-end="url(#arr2)"/>
+          <rect x="680" y="40" width="200" height="80" rx="14" fill="url(#g2)"/>
+          <text x="780" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">You approve</text>
+          <text x="780" y="98" text-anchor="middle" fill="#f0e6ff" font-size="11" font-family="Inter,sans-serif">Send in 1 click</text>
+        </svg>
       </div>
     </div>
 
     <div class="grid-2">
       <div class="panel">
-        <h2>Pehle kya hota tha?</h2>
-        <p class="problem-box">Team har email padhti. “Not interested”, “out of office”, aur “call book karo” sab mix. Real buyer miss ho jata.</p>
+        <h2>Before</h2>
+        <p class="problem-box">Your team reads every email. “Not interested”, out-of-office, and “let’s book a call” are mixed together. Real buyers get missed.</p>
       </div>
       <div class="panel">
-        <h2>Ab kya hota hai?</h2>
+        <h2>After</h2>
         <div class="result-box">
-          <strong>3× tez</strong>
-          <span>Sirf important emails pe time — baaki AI sort kar deti hai</span>
+          <strong>3× faster</strong>
+          <span>Time spent only on people who want to talk</span>
         </div>
       </div>
     </div>
@@ -65,22 +92,22 @@
         <li>
           <span class="n">1</span>
           <div>
-            <strong>Reply aati hai</strong>
-            <p>Koi aapki cold email ka jawab likhta hai.</p>
+            <strong>Reply arrives</strong>
+            <p>Someone answers your cold email.</p>
           </div>
         </li>
         <li>
           <span class="n">2</span>
           <div>
-            <strong>AI sort karti hai</strong>
-            <p><strong>Hot</strong> = call chahiye · <strong>Warm</strong> = info chahiye · <strong>Skip</strong> = nahi / galat banda</p>
+            <strong>AI sorts it</strong>
+            <p><strong>Hot</strong> = book a call · <strong>Warm</strong> = send info · <strong>Skip</strong> = no / wrong person</p>
           </div>
         </li>
         <li>
           <span class="n">3</span>
           <div>
-            <strong>Draft tayyar</strong>
-            <p>Aapke liye jawab likh ke rakhti hai — aap bas check karke bhej do.</p>
+            <strong>Draft is ready</strong>
+            <p>A human-sounding reply is waiting — you check and send.</p>
           </div>
         </li>
       </ol>
@@ -88,36 +115,36 @@
 
     <div class="demo-stage">
       <div class="stage-head">
-        <h2>Example dekho (button dabao)</h2>
-        <button type="button" class="btn btn-primary" id="runReplyDemo">Replies sort karo →</button>
+        <h2>Try a live sample</h2>
+        <button type="button" class="btn btn-primary" id="runReplyDemo">Sort replies →</button>
       </div>
       <div class="cols-3">
         <div class="col">
-          <h4><span class="badge badge-hot">Hot — jaldi jawab</span></h4>
-          <div id="colHot"><p class="muted" style="font-size:12px">Yahan serious buyers…</p></div>
+          <h4><span class="badge badge-hot">Hot — reply now</span></h4>
+          <div id="colHot"><p class="muted" style="font-size:12px">Serious buyers land here…</p></div>
         </div>
         <div class="col">
-          <h4><span class="badge badge-warm">Warm — baad mein</span></h4>
-          <div id="colWarm"><p class="muted" style="font-size:12px">Yahan “info bhejo”…</p></div>
+          <h4><span class="badge badge-warm">Warm — later</span></h4>
+          <div id="colWarm"><p class="muted" style="font-size:12px">“Send info” lands here…</p></div>
         </div>
         <div class="col">
           <h4><span class="badge badge-skip">Skip — ignore</span></h4>
-          <div id="colSkip"><p class="muted" style="font-size:12px">Yahan “unsubscribe”…</p></div>
+          <div id="colSkip"><p class="muted" style="font-size:12px">Unsubscribe / OOO…</p></div>
         </div>
       </div>
     </div>
 
     <div class="panel">
-      <h2>Ek line mein</h2>
-      <p class="muted" style="font-size:16px;color:var(--ink)">Jaise assistant inbox saaf karke sirf zaroori emails aapke table pe rakhe.</p>
+      <h2>In one line</h2>
+      <p style="font-size:16px;color:var(--ink)">Like an assistant who cleans your inbox and only puts the important emails on your desk.</p>
     </div>
   </main>
 
   <section class="cta-band">
-    <h2>Aapke email system pe laga sakte hain</h2>
-    <p>Instantly / Smartlead / Gmail — jo aap use karte ho.</p>
-    <a class="btn btn-primary" href="../index.html#contact">Mujhe ye chahiye →</a>
-    <a class="btn btn-ghost" href="linkedin-crm.html" style="margin-left:10px">Agli demo →</a>
+    <h2>Plug this into your sequences</h2>
+    <p>Works with Instantly, Smartlead, Gmail — whatever you already use.</p>
+    <a class="btn btn-primary" href="../index.html#contact">Automate my pipeline →</a>
+    <a class="btn btn-ghost" href="linkedin-crm.html" style="margin-left:10px">Next demo →</a>
   </section>
   <script src="ai-demo.js"></script>
 </body>

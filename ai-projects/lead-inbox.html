@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lead Inbox AI | Market Makers</title>
-  <meta name="description" content="Simple demo: website leads get answered fast — no tech jargon." />
+  <title>Fast Lead Reply | Market Makers</title>
+  <meta name="description" content="Product demo: website leads scored and routed to sales in under 2 minutes." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="ai-demo.css" />
@@ -24,37 +24,65 @@
 
   <section class="demo-hero">
     <div class="wrap">
-      <span class="eyebrow">Demo 1 of 3 · Easy explanation</span>
-      <h1>Website pe lead aaye — <span class="grad">2 minute mein reply</span></h1>
-      <p class="lead">Koi aapka form bharta hai (raat ko bhi). System khud check karta hai ye serious buyer hai ya nahi, aur aapki team ko message bhej deta hai.</p>
+      <span class="eyebrow">AI Automation · Demo 1 of 3</span>
+      <h1>Website leads answered in <span class="grad">under 2 minutes</span></h1>
+      <p class="lead">Someone fills your form — even at night. The system checks if they look like a real buyer, then alerts your team on WhatsApp or Slack.</p>
     </div>
   </section>
 
   <main class="wrap">
     <div class="video-block">
-      <h2>Video — ye kaise kaam karega</h2>
-      <div class="vplayer" data-video="lead">
-        <div class="vplayer-screen"></div>
-        <p class="vplayer-caption"></p>
-        <button type="button" class="vplayer-bigplay" aria-label="Play video"><span>▶</span></button>
-        <div class="vplayer-bar">
-          <button type="button" class="vplay" aria-label="Play">▶</button>
-          <div class="vprogress" aria-hidden="true"><i></i></div>
-          <span class="vtime">1 / 3</span>
-        </div>
+      <h2>Watch how the software works</h2>
+      <div class="real-video">
+        <video controls playsinline preload="metadata" poster="" aria-label="Fast Lead Reply product demo">
+          <source src="videos/lead-inbox.mp4" type="video/mp4" />
+          Your browser does not support video.
+        </video>
+      </div>
+      <p class="muted video-note">Product-style walkthrough: form → AI score → team alert.</p>
+    </div>
+
+    <div class="panel diagram-panel">
+      <h2>Flow diagram</h2>
+      <div class="flow-diagram" aria-hidden="true">
+        <svg viewBox="0 0 960 160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#9b5cff"/><stop offset="100%" stop-color="#c264ff"/>
+            </linearGradient>
+            <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6 Z" fill="#a79fb8"/>
+            </marker>
+          </defs>
+          <rect x="20" y="40" width="160" height="80" rx="14" fill="#170f2a" stroke="#9b5cff" stroke-width="1.5"/>
+          <text x="100" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">Website form</text>
+          <text x="100" y="98" text-anchor="middle" fill="#a79fb8" font-size="11" font-family="Inter,sans-serif">Name · email · ask</text>
+          <line x1="180" y1="80" x2="230" y2="80" stroke="#a79fb8" stroke-width="2" marker-end="url(#arr)"/>
+          <rect x="230" y="40" width="160" height="80" rx="14" fill="#170f2a" stroke="#9b5cff" stroke-width="1.5"/>
+          <text x="310" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">AI scores lead</text>
+          <text x="310" y="98" text-anchor="middle" fill="#a79fb8" font-size="11" font-family="Inter,sans-serif">Hot · Warm · Skip</text>
+          <line x1="390" y1="80" x2="440" y2="80" stroke="#a79fb8" stroke-width="2" marker-end="url(#arr)"/>
+          <rect x="440" y="40" width="160" height="80" rx="14" fill="#170f2a" stroke="#9b5cff" stroke-width="1.5"/>
+          <text x="520" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">Save to CRM</text>
+          <text x="520" y="98" text-anchor="middle" fill="#a79fb8" font-size="11" font-family="Inter,sans-serif">Owner assigned</text>
+          <line x1="600" y1="80" x2="650" y2="80" stroke="#a79fb8" stroke-width="2" marker-end="url(#arr)"/>
+          <rect x="650" y="40" width="200" height="80" rx="14" fill="url(#g1)"/>
+          <text x="750" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">Team alert</text>
+          <text x="750" y="98" text-anchor="middle" fill="#f0e6ff" font-size="11" font-family="Inter,sans-serif">WhatsApp / Slack</text>
+        </svg>
       </div>
     </div>
 
     <div class="grid-2">
       <div class="panel">
-        <h2>Pehle kya hota tha?</h2>
-        <p class="problem-box">Form bharne wala wait karta rehta. Team subah inbox kholti — kabhi kabhi 1 din late. Hot buyer thandha ho jata.</p>
+        <h2>Before</h2>
+        <p class="problem-box">The visitor waits. Your team opens the inbox in the morning — sometimes a full day late. A hot buyer goes cold.</p>
       </div>
       <div class="panel">
-        <h2>Ab kya hota hai?</h2>
+        <h2>After</h2>
         <div class="result-box">
-          <strong>2 minute</strong>
-          <span>Andar serious lead pe team ko alert mil jata hai</span>
+          <strong>&lt; 2 minutes</strong>
+          <span>Serious leads reach the right person with context</span>
         </div>
       </div>
     </div>
@@ -65,22 +93,22 @@
         <li>
           <span class="n">1</span>
           <div>
-            <strong>Lead aati hai</strong>
-            <p>Koi naam, email, message form pe likhta hai.</p>
+            <strong>Lead comes in</strong>
+            <p>Someone submits name, email, and a short message on your site.</p>
           </div>
         </li>
         <li>
           <span class="n">2</span>
           <div>
-            <strong>AI padhti hai</strong>
-            <p>“Ye buyer lagta hai?” — Haan / Maybe / Nahi. Score de deti hai.</p>
+            <strong>AI reads it</strong>
+            <p>Is this a real buyer? Yes / maybe / no — with a clear score.</p>
           </div>
         </li>
         <li>
           <span class="n">3</span>
           <div>
-            <strong>Team ko bata deti hai</strong>
-            <p>WhatsApp / Slack pe: “Sarah ne demo manga — jaldi call karo.”</p>
+            <strong>Team is notified</strong>
+            <p>WhatsApp or Slack: “Sarah asked for a demo — call now.”</p>
           </div>
         </li>
       </ol>
@@ -88,32 +116,32 @@
 
     <div class="demo-stage">
       <div class="stage-head">
-        <h2>Example dekho (button dabao)</h2>
-        <button type="button" class="btn btn-primary" id="runLeadDemo">Example chalao →</button>
+        <h2>Try a live sample</h2>
+        <button type="button" class="btn btn-primary" id="runLeadDemo">Run sample →</button>
       </div>
       <div class="grid-2">
         <div>
-          <h3>Kya ho raha hai</h3>
-          <div class="log" id="leadLog"><div class="line" style="opacity:.5">Button dabao — yahan steps dikhengi…</div></div>
+          <h3>What the system does</h3>
+          <div class="log" id="leadLog"><div class="line" style="opacity:.5">Click Run sample to see the steps…</div></div>
         </div>
         <div>
-          <h3>Team ko kya dikhega</h3>
-          <div id="leadOut"><p class="muted" style="font-size:14px">Yahan ek ready lead card banegi.</p></div>
+          <h3>What your team sees</h3>
+          <div id="leadOut"><p class="muted" style="font-size:14px">A scored lead card will appear here.</p></div>
         </div>
       </div>
     </div>
 
     <div class="panel">
-      <h2>Ek line mein</h2>
-      <p class="muted" style="font-size:16px;color:var(--ink)">Jaise receptionist raat ko bhi phone uthaye — bas ye computer karta hai, form ke liye.</p>
+      <h2>In one line</h2>
+      <p style="font-size:16px;color:var(--ink)">Like a receptionist who never sleeps — but for your website form.</p>
     </div>
   </main>
 
   <section class="cta-band">
-    <h2>Aapke business pe laga sakte hain</h2>
-    <p>Form → alert → team. Bina mushkil jargon ke setup.</p>
-    <a class="btn btn-primary" href="../index.html#contact">Mujhe ye chahiye →</a>
-    <a class="btn btn-ghost" href="reply-copilot.html" style="margin-left:10px">Agli demo →</a>
+    <h2>Want this on your pipeline?</h2>
+    <p>We connect your form, CRM, and alerts in days.</p>
+    <a class="btn btn-primary" href="../index.html#contact">Automate my pipeline →</a>
+    <a class="btn btn-ghost" href="reply-copilot.html" style="margin-left:10px">Next demo →</a>
   </section>
   <script src="ai-demo.js"></script>
 </body>
