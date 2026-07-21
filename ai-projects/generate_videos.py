@@ -334,10 +334,129 @@ def render_video(name, frame_fn):
     frames_dir.rmdir()
     return mp4
 
+def frame_sdr(scene, t):
+    img = Image.new("RGBA", (W, H), BG + (255,))
+    d = draw_window(img, "AI Research SDR · Advanced product demo")
+    te = ease(t)
+    if scene == 0:
+        round_rect(d, (120, 120, 1160, 560), 16, fill=CARD2, outline=BORDER)
+        d.text((150, 145), "Account queue", font=F_H, fill=TEXT)
+        d.text((150, 185), "Northpeak.io · Sarah Chen · VP Growth", font=F_P, fill=MUTED)
+        rows = ["Pull company profile", "Scan recent news & funding", "Detect hiring signals", "Map tech stack"]
+        y = 250
+        for i, row in enumerate(rows):
+            if te < i * 0.2:
+                break
+            round_rect(d, (150, y, 900, y + 52), 12, fill=CARD, outline=BORDER)
+            pill(d, 170, y + 13, "OK" if te > i * 0.22 + 0.15 else "…", (40, 80, 60) if te > i * 0.22 + 0.15 else (50, 40, 70), OK if te > i * 0.22 + 0.15 else MUTED)
+            d.text((240, y + 15), row, font=F_P, fill=TEXT)
+            y += 64
+    elif scene == 1:
+        round_rect(d, (120, 120, 1160, 600), 16, fill=CARD2, outline=BORDER)
+        d.text((150, 145), "Research brief", font=F_H, fill=TEXT)
+        points = [
+            "Series B closed 6 weeks ago",
+            "Hiring 4 SDRs on LinkedIn",
+            "Stack: HubSpot + Instantly",
+            "Hook: scale outbound without drowning in replies",
+        ]
+        y = 210
+        for i, p in enumerate(points):
+            if te < i * 0.2:
+                break
+            d.text((170, y), "•  " + p, font=F_P, fill=TEXT)
+            y += 48
+        if te > 0.7:
+            pill(d, 150, 480, "ICP fit: High", (40, 80, 60), OK)
+            pill(d, 320, 480, "Priority: A", (80, 50, 40), HOT)
+    else:
+        round_rect(d, (100, 120, 1180, 600), 16, fill=CARD2, outline=BORDER)
+        d.text((140, 145), "Multi-channel pack", font=F_H, fill=TEXT)
+        blocks = [
+            ("LinkedIn", "Congrats on the Series B — curious how you're staffing outbound."),
+            ("Email", "Saw you're hiring SDRs; we help teams lift reply rates in 30 days."),
+            ("Call opener", "Calling about post-raise outbound capacity…"),
+        ]
+        y = 210
+        for i, (label, body) in enumerate(blocks):
+            if te < i * 0.25:
+                break
+            round_rect(d, (140, y, 1140, y + 90), 12, fill=CARD, outline=BORDER)
+            pill(d, 160, y + 16, label, (60, 40, 90), PURPLE2)
+            d.text((160, y + 50), body[: max(1, int(len(body) * min(1, te * 1.4)))], font=F_P, fill=TEXT)
+            y += 105
+        if te > 0.75:
+            d.text((140, 560), "Result: research + drafts in ~30 seconds per account", font=F_B, fill=TEXT)
+    captions = [
+        "Step 1 — Pull account signals",
+        "Step 2 — Build a research brief",
+        "Step 3 — Output LinkedIn + email + call",
+    ]
+    return img, captions[scene]
+
+
+def frame_meeting(scene, t):
+    img = Image.new("RGBA", (W, H), BG + (255,))
+    d = draw_window(img, "Meeting Follow-up OS · Advanced product demo")
+    te = ease(t)
+    if scene == 0:
+        round_rect(d, (120, 120, 1160, 560), 16, fill=CARD2, outline=BORDER)
+        d.text((150, 145), "Discovery call transcript", font=F_H, fill=TEXT)
+        d.text((150, 185), "Sarah Chen · 28 minutes · Zoom", font=F_S, fill=MUTED)
+        lines = [
+            "Sarah: Our team is drowning in cold email replies…",
+            "You: What's the current response SLA?",
+            "Sarah: Sometimes a full day — buyers go cold.",
+            "Sarah: We need something before next quarter.",
+        ]
+        y = 240
+        shown = max(1, int(len(lines) * te + 0.2))
+        for line in lines[:shown]:
+            round_rect(d, (150, y, 1130, y + 48), 10, fill=CARD, outline=BORDER)
+            d.text((170, y + 14), line[: max(1, int(len(line) * min(1, te + 0.3)))], font=F_P, fill=TEXT)
+            y += 58
+    elif scene == 1:
+        round_rect(d, (120, 120, 600, 600), 16, fill=CARD2, outline=BORDER)
+        d.text((150, 150), "AI summary", font=F_H, fill=TEXT)
+        items = ["Pain: slow reply handling", "Budget: open this quarter", "Objection: integration time", "Next: pricing + tech demo"]
+        y = 220
+        for i, it in enumerate(items):
+            if te < i * 0.2:
+                break
+            d.text((160, y), "•  " + it, font=F_P, fill=TEXT)
+            y += 50
+        round_rect(d, (640, 120, 1160, 600), 16, fill=CARD2, outline=BORDER)
+        d.text((670, 150), "CRM update", font=F_H, fill=TEXT)
+        if te > 0.3:
+            d.text((670, 220), "Stage → Proposal", font=F_P, fill=OK)
+        if te > 0.5:
+            d.text((670, 270), "Owner → Ayesha", font=F_P, fill=TEXT)
+        if te > 0.7:
+            d.text((670, 320), "Amount → $4,800 / mo", font=F_P, fill=TEXT)
+            pill(d, 670, 400, "Deal fields written", (40, 80, 60), OK)
+    else:
+        round_rect(d, (120, 120, 1160, 600), 16, fill=CARD2, outline=BORDER)
+        d.text((150, 145), "Follow-up pack", font=F_H, fill=TEXT)
+        round_rect(d, (150, 200, 1130, 380), 14, fill=CARD, outline=BORDER)
+        draft = "Hi Sarah — great speaking today. Attached is pricing and a Loom of the reply workflow we discussed. Free Thu 2–4 for the tech demo?"
+        d.text((180, 230), draft[: max(1, int(len(draft) * te))], font=F_P, fill=TEXT)
+        if te > 0.55:
+            round_rect(d, (150, 420, 1130, 540), 14, fill=CARD, outline=BORDER)
+            d.text((180, 445), "Tasks", font=F_B, fill=TEXT)
+            d.text((180, 485), "Ayesha — send proposal by Thu   ·   Bilal — record Loom walkthrough", font=F_P, fill=MUTED)
+        if te > 0.8:
+            d.text((150, 570), "Result: admin done in under 5 minutes after the call", font=F_B, fill=TEXT)
+    captions = [
+        "Step 1 — Ingest the call transcript",
+        "Step 2 — Summarize + update CRM",
+        "Step 3 — Draft email + create tasks",
+    ]
+    return img, captions[scene]
+
+
 def main():
-    render_video("lead-inbox", frame_lead)
-    render_video("reply-copilot", frame_reply)
-    render_video("linkedin-crm", frame_linkedin)
+    render_video("research-sdr", frame_sdr)
+    render_video("meeting-followup", frame_meeting)
     print("DONE")
 
 if __name__ == "__main__":

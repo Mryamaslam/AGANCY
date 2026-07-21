@@ -95,4 +95,70 @@
       setBusy(liBtn, false);
     });
   }
+
+  var sdrBtn = document.getElementById("runSdrDemo");
+  if (sdrBtn) {
+    sdrBtn.addEventListener("click", async function () {
+      setBusy(sdrBtn, true);
+      var log = document.getElementById("sdrLog");
+      var out = document.getElementById("sdrOut");
+      log.innerHTML = "";
+      out.innerHTML = "";
+      var steps = [
+        "1. Account: Northpeak · sarah@northpeak.io",
+        "2. Research: Series B · hiring SDRs · uses HubSpot",
+        "3. Hook: “Scaling outbound after the raise”",
+        "4. Pack ready: LinkedIn + email + call opener"
+      ];
+      for (var i = 0; i < steps.length; i++) {
+        var line = document.createElement("div");
+        line.className = "line";
+        line.textContent = steps[i];
+        log.appendChild(line);
+        await sleep(480);
+      }
+      out.innerHTML =
+        '<div class="feed-item entering">' +
+        '<span class="badge badge-ok">Personalized</span>' +
+        '<h3 style="margin:10px 0 4px;font-size:16px">Northpeak outreach pack</h3>' +
+        '<p class="muted" style="font-size:14px"><strong>LI:</strong> Congrats on the Series B — curious how you’re staffing outbound.<br/>' +
+        '<strong>Email:</strong> Saw you’re hiring SDRs; we help teams hit reply rate targets in 30 days.<br/>' +
+        '<strong>Call:</strong> “Calling about post-raise outbound capacity…”</p>' +
+        "</div>";
+      setBusy(sdrBtn, false);
+    });
+  }
+
+  var meetBtn = document.getElementById("runMeetDemo");
+  if (meetBtn) {
+    meetBtn.addEventListener("click", async function () {
+      setBusy(meetBtn, true);
+      var log = document.getElementById("meetLog");
+      var out = document.getElementById("meetOut");
+      log.innerHTML = "";
+      out.innerHTML = "";
+      var steps = [
+        "1. Transcript received · 28 min discovery",
+        "2. Extracted: pain = slow reply handling",
+        "3. CRM: stage → Proposal · owner Ayesha",
+        "4. Draft follow-up email ready"
+      ];
+      for (var i = 0; i < steps.length; i++) {
+        var line = document.createElement("div");
+        line.className = "line";
+        line.textContent = steps[i];
+        log.appendChild(line);
+        await sleep(480);
+      }
+      out.innerHTML =
+        '<div class="feed-item entering">' +
+        '<span class="badge badge-hot">Follow-up ready</span>' +
+        '<h3 style="margin:10px 0 4px;font-size:16px">Sarah Chen · Discovery summary</h3>' +
+        '<p class="muted" style="font-size:14px"><strong>Next steps:</strong> send pricing + book technical demo.<br/>' +
+        '<strong>Tasks:</strong> Ayesha — proposal by Thu · Bilal — Loom walkthrough.<br/>' +
+        '<strong>Email draft:</strong> “Great speaking today — here’s what we covered…”</p>' +
+        "</div>";
+      setBusy(meetBtn, false);
+    });
+  }
 })();
