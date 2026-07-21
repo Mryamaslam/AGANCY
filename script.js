@@ -183,6 +183,178 @@
 
   initTestimonialsCarousel();
 
+  /* ---------- Shared step carousel (3 visible, step 1, wrap) ---------- */
+  function initStepCarousel(opts) {
+    var track = document.getElementById(opts.trackId);
+    var prevBtn = document.getElementById(opts.prevId);
+    var nextBtn = document.getElementById(opts.nextId);
+    var carousel = document.querySelector(opts.carouselSel);
+    if (!track || !prevBtn || !nextBtn || !carousel) return;
+
+    var originals = Array.prototype.slice.call(track.querySelectorAll(opts.cardSel));
+    var total = originals.length;
+    if (total < 2) return;
+
+    var gap = opts.gap || 22;
+    var index = 0;
+    var autoplayMs = opts.autoplayMs || 3800;
+    var autoplayTimer = null;
+    var animating = false;
+
+    function getVisibleCount() {
+      if (window.innerWidth <= 760) return 1;
+      if (window.innerWidth <= 980) return 2;
+      return 3;
+    }
+
+    function rebuildClones() {
+      track.querySelectorAll(opts.cardSel + ".is-clone").forEach(function (el) {
+        el.parentNode.removeChild(el);
+      });
+      var visible = getVisibleCount();
+      var cloneCount = Math.min(visible, total);
+      var i;
+      for (i = 0; i < cloneCount; i++) {
+        var clone = originals[i].cloneNode(true);
+        clone.classList.add("is-clone");
+        clone.setAttribute("aria-hidden", "true");
+        track.appendChild(clone);
+      }
+    }
+
+    function getCards() {
+      return track.querySelectorAll(opts.cardSel);
+    }
+
+    function getCardWidth() {
+      var visible = getVisibleCount();
+      var viewport = track.parentElement;
+      var w = viewport.clientWidth;
+      if (!w) return 0;
+      return (w - gap * (visible - 1)) / visible;
+    }
+
+    function sizeCards() {
+      var cards = getCards();
+      var cardW = getCardWidth();
+      if (!cardW) return;
+      var i;
+      for (i = 0; i < cards.length; i++) {
+        cards[i].style.width = cardW + "px";
+        cards[i].style.minWidth = cardW + "px";
+        cards[i].style.flexBasis = cardW + "px";
+        cards[i].style.height = "auto";
+      }
+      var maxH = 0;
+      for (i = 0; i < cards.length; i++) {
+        if (cards[i].offsetHeight > maxH) maxH = cards[i].offsetHeight;
+      }
+      for (i = 0; i < cards.length; i++) {
+        cards[i].style.height = maxH + "px";
+      }
+    }
+
+    function applyTransform(animate) {
+      var cardW = getCardWidth();
+      if (!cardW) return;
+      if (!animate) track.classList.add("is-resetting");
+      else track.classList.remove("is-resetting");
+      track.style.transform = "translate3d(-" + (index * (cardW + gap)) + "px, 0, 0)";
+      if (!animate) {
+        void track.offsetHeight;
+        track.classList.remove("is-resetting");
+      }
+    }
+
+    function slide(animate) {
+      sizeCards();
+      applyTransform(animate !== false);
+    }
+
+    function goNext() {
+      if (animating) return;
+      animating = true;
+      index += 1;
+      slide(true);
+      window.setTimeout(function () {
+        if (index >= total) {
+          index = 0;
+          slide(false);
+        }
+        animating = false;
+      }, 560);
+    }
+
+    function goPrev() {
+      if (animating) return;
+      if (index <= 0) {
+        index = total;
+        slide(false);
+      }
+      animating = true;
+      index -= 1;
+      slide(true);
+      window.setTimeout(function () {
+        animating = false;
+      }, 560);
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      autoplayTimer = window.setInterval(goNext, autoplayMs);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) {
+        window.clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    }
+
+    prevBtn.addEventListener("click", function () {
+      goPrev();
+      startAutoplay();
+    });
+    nextBtn.addEventListener("click", function () {
+      goNext();
+      startAutoplay();
+    });
+    carousel.addEventListener("mouseenter", stopAutoplay);
+    carousel.addEventListener("mouseleave", startAutoplay);
+
+    function refresh() {
+      var was = index;
+      rebuildClones();
+      if (was >= total) index = 0;
+      slide(false);
+    }
+
+    window.addEventListener("resize", refresh);
+    window.addEventListener("load", refresh);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh);
+    requestAnimationFrame(refresh);
+    setTimeout(refresh, 120);
+    startAutoplay();
+  }
+
+  initStepCarousel({
+    trackId: "wpTrack",
+    prevId: "wpPrev",
+    nextId: "wpNext",
+    carouselSel: ".web-projects-carousel",
+    cardSel: ".web-project-card",
+    autoplayMs: 3800
+  });
+
+  initStepCarousel({
+    trackId: "dbTrack",
+    prevId: "dbPrev",
+    nextId: "dbNext",
+    carouselSel: ".dashboards-carousel",
+    cardSel: ".tool-dashboard-card",
+    autoplayMs: 4000
+  });
+
   /* ---------- Scroll reveal ---------- */
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
@@ -535,12 +707,12 @@
       overlayImg.removeAttribute("src");
       document.body.style.overflow = "";
     }
-    document.querySelectorAll(".work-card-img-btn").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        overlayImg.src = btn.getAttribute("data-full");
-        overlay.hidden = false;
-        document.body.style.overflow = "hidden";
-      });
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest(".work-card-img-btn");
+      if (!btn) return;
+      overlayImg.src = btn.getAttribute("data-full");
+      overlay.hidden = false;
+      document.body.style.overflow = "hidden";
     });
     if (closeBtn) closeBtn.addEventListener("click", closeOverlay);
     overlay.addEventListener("click", function (e) {
