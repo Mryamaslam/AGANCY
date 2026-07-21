@@ -374,62 +374,108 @@ def render_video(name, frame_fn):
     return mp4
 
 def frame_sdr(scene, t):
+    """Clearer AI Research SDR walkthrough — same layout style as LinkedIn Save."""
     img = Image.new("RGBA", (W, H), BG + (255,))
-    d = draw_window(img, "AI Research SDR · Advanced product demo")
+    d = draw_window(img, "AI Research SDR · How it works")
     te = ease(t)
+
+    step_labels = ["STEP 1 of 3", "STEP 2 of 3", "STEP 3 of 3"]
+    step_titles = [
+        "Load the company + contact",
+        "AI finds a personal hook",
+        "You get LinkedIn + email + call",
+    ]
+    tips = [
+        "Start with one lead\nfrom your list",
+        "News, hiring, tools\n= why message them NOW",
+        "Ready-to-send copy\nfor 3 channels",
+    ]
+
+    round_rect(d, (70, 110, 360, 620), 16, fill=CARD2, outline=BORDER)
+    d.text((95, 140), step_labels[scene], font=F_B, fill=PURPLE2)
+    title = step_titles[scene]
+    # split long titles across 2 lines
+    words = title.split()
+    line1 = " ".join(words[:4])
+    line2 = " ".join(words[4:])
+    d.text((95, 185), line1, font=F_H, fill=TEXT)
+    if line2:
+        d.text((95, 218), line2, font=F_H, fill=TEXT)
+    y = 300
+    for part in tips[scene].split("\n"):
+        d.text((95, y), part, font=F_P, fill=MUTED)
+        y += 32
+    for i in range(3):
+        cx = 120 + i * 50
+        fill = PURPLE if i <= scene else (50, 40, 70)
+        d.ellipse((cx, 560, cx + 18, 578), fill=fill)
+
+    round_rect(d, (390, 110, 1210, 620), 16, fill=CARD2, outline=BORDER)
+
     if scene == 0:
-        round_rect(d, (120, 120, 1160, 560), 16, fill=CARD2, outline=BORDER)
-        d.text((150, 145), "Account queue", font=F_H, fill=TEXT)
-        d.text((150, 185), "Northpeak.io · Sarah Chen · VP Growth", font=F_P, fill=MUTED)
-        rows = ["Pull company profile", "Scan recent news & funding", "Detect hiring signals", "Map tech stack"]
-        y = 250
-        for i, row in enumerate(rows):
-            if te < i * 0.2:
+        d.text((430, 150), "Lead from your list", font=F_H, fill=TEXT)
+        round_rect(d, (450, 210, 1150, 400), 18, fill=CARD, outline=BORDER)
+        d.ellipse((480, 250, 580, 350), fill=PURPLE)
+        d.text((505, 285), "SC", font=F_TITLE, fill=TEXT)
+        d.text((610, 255), "Sarah Chen", font=F_TITLE, fill=TEXT)
+        d.text((610, 305), "VP Growth  ·  Northpeak.io", font=F_P, fill=MUTED)
+        if te > 0.4:
+            pill(d, 610, 350, "In queue", (60, 40, 90), PURPLE2)
+        checks = ["Company domain loaded", "Contact email found", "Ready to research"]
+        y = 430
+        for i, c in enumerate(checks):
+            if te < 0.35 + i * 0.2:
                 break
-            round_rect(d, (150, y, 900, y + 52), 12, fill=CARD, outline=BORDER)
-            pill(d, 170, y + 13, "OK" if te > i * 0.22 + 0.15 else "…", (40, 80, 60) if te > i * 0.22 + 0.15 else (50, 40, 70), OK if te > i * 0.22 + 0.15 else MUTED)
-            d.text((240, y + 15), row, font=F_P, fill=TEXT)
-            y += 64
+            pill(d, 450, y, "OK", (40, 80, 60), OK)
+            d.text((520, y + 4), c, font=F_P, fill=TEXT)
+            y += 42
+        if te > 0.85:
+            d.text((450, 560), "Next: AI researches this company...", font=F_B, fill=OK)
+
     elif scene == 1:
-        round_rect(d, (120, 120, 1160, 600), 16, fill=CARD2, outline=BORDER)
-        d.text((150, 145), "Research brief", font=F_H, fill=TEXT)
-        points = [
-            "Series B closed 6 weeks ago",
-            "Hiring 4 SDRs on LinkedIn",
-            "Stack: HubSpot + Instantly",
-            "Hook: scale outbound without drowning in replies",
+        d.text((430, 150), "What AI discovered", font=F_H, fill=TEXT)
+        findings = [
+            ("Funding", "Series B closed 6 weeks ago"),
+            ("Hiring", "Posting 4 SDR jobs on LinkedIn"),
+            ("Tools", "Uses HubSpot + Instantly"),
+            ("Hook", "Scale outbound after the raise"),
         ]
         y = 210
-        for i, p in enumerate(points):
+        for i, (label, body) in enumerate(findings):
             if te < i * 0.2:
                 break
-            d.text((170, y), "•  " + p, font=F_P, fill=TEXT)
-            y += 48
-        if te > 0.7:
-            pill(d, 150, 480, "ICP fit: High", (40, 80, 60), OK)
-            pill(d, 320, 480, "Priority: A", (80, 50, 40), HOT)
+            round_rect(d, (450, y, 1150, y + 78), 12, fill=CARD, outline=BORDER)
+            pill(d, 470, y + 24, label, (60, 40, 90), PURPLE2)
+            d.text((600, y + 26), body, font=F_P, fill=TEXT)
+            y += 90
+        if te > 0.8:
+            pill(d, 450, 560, "ICP fit: High", (40, 80, 60), OK)
+            pill(d, 640, 560, "Priority: A", (80, 50, 40), HOT)
+
     else:
-        round_rect(d, (100, 120, 1180, 600), 16, fill=CARD2, outline=BORDER)
-        d.text((140, 145), "Multi-channel pack", font=F_H, fill=TEXT)
+        d.text((430, 150), "Your outreach pack (ready to send)", font=F_H, fill=TEXT)
         blocks = [
-            ("LinkedIn", "Congrats on the Series B — curious how you're staffing outbound."),
-            ("Email", "Saw you're hiring SDRs; we help teams lift reply rates in 30 days."),
-            ("Call opener", "Calling about post-raise outbound capacity…"),
+            ("1. LinkedIn", "Congrats on the Series B — curious how you're staffing outbound."),
+            ("2. Email", "Saw you're hiring SDRs; we help teams lift reply rates in 30 days."),
+            ("3. Call opener", "Calling about post-raise outbound capacity..."),
         ]
-        y = 210
+        y = 205
         for i, (label, body) in enumerate(blocks):
-            if te < i * 0.25:
+            if te < i * 0.22:
                 break
-            round_rect(d, (140, y, 1140, y + 90), 12, fill=CARD, outline=BORDER)
-            pill(d, 160, y + 16, label, (60, 40, 90), PURPLE2)
-            d.text((160, y + 50), body[: max(1, int(len(body) * min(1, te * 1.4)))], font=F_P, fill=TEXT)
-            y += 105
+            round_rect(d, (450, y, 1150, y + 95), 12, fill=CARD, outline=BORDER)
+            pill(d, 470, y + 18, label, (60, 40, 90), PURPLE2)
+            # wrap-ish by truncating with progress
+            shown = body[: max(1, int(len(body) * min(1.0, 0.4 + te)))]
+            d.text((470, y + 55), shown, font=F_P, fill=TEXT)
+            y += 108
         if te > 0.75:
-            d.text((140, 560), "Result: research + drafts in ~30 seconds per account", font=F_B, fill=TEXT)
+            d.text((450, 560), "Result: personalized outreach in about 30 seconds", font=F_B, fill=OK)
+
     captions = [
-        "Step 1 — Pull account signals",
-        "Step 2 — Build a research brief",
-        "Step 3 — Output LinkedIn + email + call",
+        "Step 1 — Pick a company and contact",
+        "Step 2 — AI finds why to message them now",
+        "Step 3 — LinkedIn + email + call scripts ready",
     ]
     return img, captions[scene]
 
@@ -494,7 +540,7 @@ def frame_meeting(scene, t):
 
 
 def main():
-    render_video("linkedin-crm", frame_linkedin)
+    render_video("research-sdr", frame_sdr)
     print("DONE")
 
 if __name__ == "__main__":
