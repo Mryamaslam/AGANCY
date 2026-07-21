@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LinkedIn → CRM Sync | Market Makers</title>
+  <meta name="description" content="Accepted LinkedIn connections enriched and synced to HubSpot with Day-0 follow-up tasks." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="ai-demo.css" />
+</head>
+<body>
+  <header class="demo-nav">
+    <div class="wrap inner">
+      <a class="brand" href="../index.html">Market <b>Makers</b></a>
+      <div class="links">
+        <a href="lead-inbox.html">Lead Inbox AI</a>
+        <a href="reply-copilot.html">Reply Copilot</a>
+        <a class="active" href="linkedin-crm.html">LinkedIn → CRM</a>
+        <a href="../index.html#ai-projects">All AI projects</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="demo-hero">
+    <div class="wrap">
+      <span class="eyebrow">AI Automation · Demo 03</span>
+      <h1>LinkedIn → <span class="grad">CRM Sync</span></h1>
+      <p class="lead">New connections and replies land in HubSpot with ICP tags and a Day-0 task — so LinkedIn outreach doesn’t die in the inbox.</p>
+      <div class="meta-row">
+        <span class="pill">Sales Navigator</span>
+        <span class="pill">Make.com</span>
+        <span class="pill">HubSpot</span>
+        <span class="pill">OpenAI</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <div class="grid-2">
+      <div class="panel">
+        <h2>Problem</h2>
+        <p class="problem-box">Accepts pile up. Nobody copies profiles into the CRM. Follow-ups slip, and warm LinkedIn conversations go cold.</p>
+      </div>
+      <div class="panel">
+        <h2>Result</h2>
+        <div class="result-box">
+          <strong>0 manual entry</strong>
+          <span>Contact + sequence + task created on every accept</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Workflow</h2>
+      <ol class="steps">
+        <li>
+          <span class="n">1</span>
+          <div>
+            <strong>Listen</strong>
+            <p>Connection accepted or reply event triggers the workflow.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">2</span>
+          <div>
+            <strong>Enrich</strong>
+            <p>Title, company, and ICP tags filled; AI writes a short personalization note.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">3</span>
+          <div>
+            <strong>Sync &amp; task</strong>
+            <p>HubSpot contact + “LI Warm” enroll + Day-0 DM task for the owner.</p>
+          </div>
+        </li>
+      </ol>
+      <div class="stack-pills">
+        <span>LinkedIn</span><span>Enrich</span><span>HubSpot</span><span>Task queue</span>
+      </div>
+    </div>
+
+    <div class="demo-stage">
+      <div class="stage-head">
+        <h2>Live run (sample)</h2>
+        <button type="button" class="btn btn-primary" id="runLiDemo">Sync connection →</button>
+      </div>
+      <div class="grid-2">
+        <div>
+          <h3>Pipeline log</h3>
+          <div class="log" id="liLog"><div class="line" style="opacity:.5">> Waiting for run…</div></div>
+        </div>
+        <div>
+          <h3>CRM card</h3>
+          <div id="liFeed"><p class="muted" style="font-size:14px">Click “Sync connection” to simulate accept → CRM.</p></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="cta-band">
+    <h2>Connect LinkedIn to your CRM</h2>
+    <p>We build the same ops layer we use on client LinkedIn programs.</p>
+    <a class="btn btn-primary" href="../index.html#contact">Automate my pipeline →</a>
+    <a class="btn btn-ghost" href="../index.html#ai-projects" style="margin-left:10px">Back to AI projects</a>
+  </section>
+  <script src="ai-demo.js"></script>
+</body>
+</html>

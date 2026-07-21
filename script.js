@@ -355,6 +355,15 @@
     autoplayMs: 4000
   });
 
+  initStepCarousel({
+    trackId: "aiTrack",
+    prevId: "aiPrev",
+    nextId: "aiNext",
+    carouselSel: ".ai-projects-carousel",
+    cardSel: ".ai-project-card",
+    autoplayMs: 4200
+  });
+
   /* ---------- Scroll reveal ---------- */
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
