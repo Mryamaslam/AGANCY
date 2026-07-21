@@ -72,25 +72,33 @@
       setBusy(liBtn, true);
       var log = document.getElementById("liLog");
       var feed = document.getElementById("liFeed");
+      if (!log || !feed) {
+        setBusy(liBtn, false);
+        return;
+      }
       log.innerHTML = "";
-      feed.innerHTML = "";
+      feed.innerHTML = '<p class="muted" style="font-size:14px">Working...</p>';
       var steps = [
-        "1. Daniel accepted the connection",
-        "2. Name + company saved to CRM",
-        "3. Reminder: send a short message today"
+        "1. LinkedIn: Daniel Okonkwo accepted your invite",
+        "2. Saving name + company to your contact list...",
+        "3. Saved: Daniel Okonkwo · RelayOps · Founder",
+        "4. Reminder created: Message Daniel today"
       ];
       for (var i = 0; i < steps.length; i++) {
         var line = document.createElement("div");
         line.className = "line";
         line.textContent = steps[i];
         log.appendChild(line);
-        await sleep(480);
+        log.scrollTop = log.scrollHeight;
+        await sleep(650);
       }
       feed.innerHTML =
         '<div class="feed-item entering">' +
-        '<span class="badge badge-ok">Saved</span>' +
+        '<span class="badge badge-ok">Saved to list</span>' +
         '<h3 style="margin:10px 0 4px;font-size:16px">Daniel Okonkwo · RelayOps</h3>' +
-        '<p class="muted" style="font-size:14px">Added to your list. Today’s task: send the first message.</p>' +
+        '<p class="muted" style="font-size:14px"><strong>Title:</strong> Founder<br/>' +
+        '<strong>Today\'s task:</strong> Send a short LinkedIn DM<br/>' +
+        '<strong>Tip:</strong> Share 1 case study + ask for a 15-min chat</p>' +
         "</div>";
       setBusy(liBtn, false);
     });

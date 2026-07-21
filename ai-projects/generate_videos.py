@@ -231,63 +231,102 @@ def frame_reply(scene, t):
     return img, captions[scene]
 
 def frame_linkedin(scene, t):
+    """Clearer, larger-type LinkedIn → CRM walkthrough."""
     img = Image.new("RGBA", (W, H), BG + (255,))
-    d = draw_window(img, "LinkedIn → CRM · Live product demo")
+    d = draw_window(img, "LinkedIn Save · How it works")
     te = ease(t)
 
+    # Big step badge top-left inside content
+    step_labels = ["STEP 1 of 3", "STEP 2 of 3", "STEP 3 of 3"]
+    step_titles = [
+        "Someone accepts on LinkedIn",
+        "Contact is saved to your list",
+        "You get a reminder to message them",
+    ]
+
+    # Left step indicator
+    round_rect(d, (70, 110, 360, 620), 16, fill=CARD2, outline=BORDER)
+    d.text((95, 140), step_labels[scene], font=F_B, fill=PURPLE2)
+    # wrap title
+    title = step_titles[scene]
+    d.text((95, 185), title[:22], font=F_H, fill=TEXT)
+    if len(title) > 22:
+        d.text((95, 218), title[22:].strip(), font=F_H, fill=TEXT)
+
+    tips = [
+        "Notification pops up\nwhen they accept",
+        "Name + company go into\nCRM automatically",
+        "Task: Message Daniel\ntoday — do not forget",
+    ]
+    tip = tips[scene]
+    y = 300
+    for part in tip.split("\n"):
+        d.text((95, y), part, font=F_P, fill=MUTED)
+        y += 32
+
+    # Progress dots
+    for i in range(3):
+        cx = 120 + i * 50
+        fill = PURPLE if i <= scene else (50, 40, 70)
+        d.ellipse((cx, 560, cx + 18, 578), fill=fill)
+
+    # Right main panel
+    round_rect(d, (390, 110, 1210, 620), 16, fill=CARD2, outline=BORDER)
+
     if scene == 0:
-        round_rect(d, (220, 160, 1060, 520), 18, fill=CARD2, outline=BORDER)
-        d.text((280, 200), "LinkedIn", font=F_H, fill=(10, 102, 194))
-        d.text((280, 250), "Daniel Okonkwo accepted your invitation", font=F_TITLE, fill=TEXT)
-        d.text((280, 310), "Founder · RelayOps", font=F_P, fill=MUTED)
-        if te > 0.4:
-            pill(d, 280, 370, "New connection", (20, 50, 90), (120, 180, 255))
-        if te > 0.7:
-            d.text((280, 430), "Automation started…", font=F_B, fill=OK)
+        d.text((430, 150), "LinkedIn notification", font=F_H, fill=(120, 180, 255))
+        # notification card
+        ny = 210 + int((1 - te) * 20)
+        round_rect(d, (450, ny, 1150, ny + 220), 18, fill=CARD, outline=(10, 102, 194))
+        d.ellipse((480, ny + 40, 560, ny + 120), fill=(10, 102, 194))
+        d.text((490, ny + 65), "DO", font=F_H, fill=TEXT)
+        d.text((590, ny + 50), "Daniel Okonkwo", font=F_TITLE, fill=TEXT)
+        d.text((590, ny + 100), "accepted your connection request", font=F_P, fill=MUTED)
+        d.text((590, ny + 140), "Founder at RelayOps", font=F_P, fill=MUTED)
+        if te > 0.55:
+            pill(d, 590, ny + 175, "Accepted just now", (20, 50, 90), (120, 180, 255))
+        if te > 0.75:
+            d.text((450, 500), "Next: save this person to your CRM list...", font=F_B, fill=OK)
 
     elif scene == 1:
-        round_rect(d, (120, 120, 1160, 600), 16, fill=CARD2, outline=BORDER)
-        d.text((150, 145), "CRM · Contacts", font=F_H, fill=TEXT)
-        headers = ["Name", "Company", "Title", "Source"]
-        xs = [160, 420, 700, 950]
-        for x, h in zip(xs, headers):
-            d.text((x, 210), h, font=F_S, fill=MUTED)
-        d.line((150, 245, 1130, 245), fill=BORDER, width=1)
-        rows = [
-            ("Daniel Okonkwo", "RelayOps", "Founder", "LinkedIn"),
-        ]
-        # fade in row
-        alpha_row = int(255 * te)
-        y = 270
-        for name, company, title, source in rows:
-            d.text((160, y), name[: int(1 + len(name) * te)], font=F_B, fill=TEXT)
-            if te > 0.35:
-                d.text((420, y), company, font=F_P, fill=TEXT)
-            if te > 0.55:
-                d.text((700, y), title, font=F_P, fill=MUTED)
-            if te > 0.75:
-                d.text((950, y), source, font=F_P, fill=OK)
-        if te > 0.85:
-            pill(d, 160, 360, "Saved automatically — no copy/paste", (40, 80, 60), OK)
+        d.text((430, 150), "Your CRM / contact list", font=F_H, fill=TEXT)
+        # table header
+        round_rect(d, (450, 210, 1150, 270), 10, fill=(13, 8, 24))
+        for x, h in ((470, "NAME"), (720, "COMPANY"), (940, "TITLE")):
+            d.text((x, 228), h, font=F_S, fill=MUTED)
+        # animated row
+        round_rect(d, (450, 290, 1150, 380), 12, fill=CARD, outline=OK if te > 0.5 else BORDER)
+        name = "Daniel Okonkwo"
+        d.text((470, 320), name[: max(1, int(len(name) * te))], font=F_H, fill=TEXT)
+        if te > 0.35:
+            d.text((720, 325), "RelayOps", font=F_P, fill=TEXT)
+        if te > 0.55:
+            d.text((940, 325), "Founder", font=F_P, fill=MUTED)
+        if te > 0.7:
+            pill(d, 470, 430, "Saved — no typing needed", (40, 80, 60), OK)
+            d.text((470, 490), "You did not copy or paste anything.", font=F_P, fill=MUTED)
 
     else:
-        round_rect(d, (180, 150, 1100, 560), 18, fill=CARD2, outline=BORDER)
-        d.text((230, 190), "Today's follow-up task", font=F_H, fill=TEXT)
-        round_rect(d, (230, 260, 1050, 420), 14, fill=CARD, outline=BORDER)
-        d.text((270, 290), "Send a short DM to Daniel Okonkwo", font=F_TITLE, fill=TEXT)
-        d.text((270, 350), "Suggested: share one case study + ask for a 15-min chat", font=F_P, fill=MUTED)
-        if te > 0.5:
-            round_rect(d, (270, 460, 480, 520), 22, fill=PURPLE)
-            d.text((310, 478), "Mark done", font=F_B, fill=TEXT)
-            pill(d, 510, 470, "Due today", (80, 50, 40), HOT)
-        d.text((180, 600), "Result: every accept becomes a tracked follow-up", font=F_B, fill=TEXT)
+        d.text((430, 150), "Today's reminder", font=F_H, fill=TEXT)
+        round_rect(d, (450, 210, 1150, 480), 16, fill=CARD, outline=HOT)
+        d.text((490, 250), "TO-DO", font=F_B, fill=HOT)
+        d.text((490, 300), "Message Daniel Okonkwo", font=F_TITLE, fill=TEXT)
+        d.text((490, 360), "Send a short LinkedIn DM today", font=F_P, fill=MUTED)
+        d.text((490, 400), "Suggested: share 1 case study + ask for a 15-min chat", font=F_P, fill=MUTED)
+        if te > 0.45:
+            round_rect(d, (490, 450, 700, 510), 22, fill=PURPLE)
+            d.text((530, 468), "Open LinkedIn", font=F_B, fill=TEXT)
+            pill(d, 730, 460, "Due today", (80, 50, 40), HOT)
+        if te > 0.75:
+            d.text((450, 545), "Result: no lost connections — follow-up is automatic", font=F_B, fill=OK)
 
     captions = [
-        "Step 1 — Connection is accepted",
-        "Step 2 — Contact saves into CRM",
-        "Step 3 — A follow-up task appears",
+        "Step 1 — They accept your LinkedIn invite",
+        "Step 2 — Their name is saved to your list",
+        "Step 3 — You get a task: message them today",
     ]
     return img, captions[scene]
+
 
 def composite_caption(rgba_img, caption):
     rgb = Image.new("RGB", (W, H), BG)
@@ -455,8 +494,7 @@ def frame_meeting(scene, t):
 
 
 def main():
-    render_video("research-sdr", frame_sdr)
-    render_video("meeting-followup", frame_meeting)
+    render_video("linkedin-crm", frame_linkedin)
     print("DONE")
 
 if __name__ == "__main__":
