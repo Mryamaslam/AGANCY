@@ -724,7 +724,7 @@
             showStatus(
               emailed
                 ? "Message sent successfully! We'll get back to you within 24 hours."
-                : "Message saved. Email delivery had an issue — we'll still review your submission.",
+                : "Message saved. Email delivery had an issue, we'll still review your submission.",
               false
             );
             form.reset();

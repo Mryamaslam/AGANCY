@@ -18,9 +18,9 @@
       log.innerHTML = "";
       out.innerHTML = "";
       var steps = [
-        "1. Form submitted — Sarah Chen",
-        "2. AI scored 92 — serious buyer",
-        "3. WhatsApp alert — call now"
+        "1. Form submitted, Sarah Chen",
+        "2. AI scored 92, serious buyer",
+        "3. WhatsApp alert, call now"
       ];
       for (var i = 0; i < steps.length; i++) {
         var line = document.createElement("div");
@@ -33,7 +33,7 @@
         '<div class="feed-item entering">' +
         '<span class="badge badge-hot">Serious lead</span>' +
         '<h3 style="margin:10px 0 4px;font-size:16px">Sarah Chen</h3>' +
-        '<p class="muted" style="font-size:14px">Asked for a demo. Budget mentioned. Assigned to Ayesha — alert within 2 minutes.</p>' +
+        '<p class="muted" style="font-size:14px">Asked for a demo. Budget mentioned. Assigned to Ayesha, alert within 2 minutes.</p>' +
         "</div>";
       setBusy(leadBtn, false);
     });
@@ -50,9 +50,9 @@
       };
       Object.keys(cols).forEach(function (k) { cols[k].innerHTML = ""; });
       var inbox = [
-        { col: "hot", name: "Marcus", text: "“Can we book a call Thursday?”", draft: "Draft: Yes — here’s my calendar link." },
+        { col: "hot", name: "Marcus", text: "“Can we book a call Thursday?”", draft: "Draft: Yes, here’s my calendar link." },
         { col: "warm", name: "Priya", text: "“Send case studies first.”", draft: "Draft: 2 examples + a short call offer." },
-        { col: "skip", name: "Office", text: "“Please remove me.”", draft: "Draft: Removed — no follow-up." }
+        { col: "skip", name: "Office", text: "“Please remove me.”", draft: "Draft: Removed, no follow up." }
       ];
       for (var i = 0; i < inbox.length; i++) {
         var item = inbox[i];
@@ -129,9 +129,9 @@
         '<div class="feed-item entering">' +
         '<span class="badge badge-ok">Personalized</span>' +
         '<h3 style="margin:10px 0 4px;font-size:16px">Northpeak outreach pack</h3>' +
-        '<p class="muted" style="font-size:14px"><strong>LI:</strong> Congrats on the Series B — curious how you’re staffing outbound.<br/>' +
+        '<p class="muted" style="font-size:14px"><strong>LI:</strong> Congrats on the Series B, curious how you’re staffing outbound.<br/>' +
         '<strong>Email:</strong> Saw you’re hiring SDRs; we help teams hit reply rate targets in 30 days.<br/>' +
-        '<strong>Call:</strong> “Calling about post-raise outbound capacity…”</p>' +
+        '<strong>Call:</strong> “Calling about post raise outbound capacity…”</p>' +
         "</div>";
       setBusy(sdrBtn, false);
     });
@@ -149,7 +149,7 @@
         "1. Transcript received · 28 min discovery",
         "2. Extracted: pain = slow reply handling",
         "3. CRM: stage → Proposal · owner Ayesha",
-        "4. Draft follow-up email ready"
+        "4. Draft follow up email ready"
       ];
       for (var i = 0; i < steps.length; i++) {
         var line = document.createElement("div");
@@ -160,11 +160,11 @@
       }
       out.innerHTML =
         '<div class="feed-item entering">' +
-        '<span class="badge badge-hot">Follow-up ready</span>' +
+        '<span class="badge badge-hot">Follow up ready</span>' +
         '<h3 style="margin:10px 0 4px;font-size:16px">Sarah Chen · Discovery summary</h3>' +
         '<p class="muted" style="font-size:14px"><strong>Next steps:</strong> send pricing + book technical demo.<br/>' +
-        '<strong>Tasks:</strong> Ayesha — proposal by Thu · Bilal — Loom walkthrough.<br/>' +
-        '<strong>Email draft:</strong> “Great speaking today — here’s what we covered…”</p>' +
+        '<strong>Tasks:</strong> Ayesha, proposal by Thu · Bilal, Loom walkthrough.<br/>' +
+        '<strong>Email draft:</strong> “Great speaking today, here’s what we covered…”</p>' +
         "</div>";
       setBusy(meetBtn, false);
     });
