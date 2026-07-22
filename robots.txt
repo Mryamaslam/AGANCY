@@ -1,0 +1,45 @@
+# Allow all search engines and AI crawlers
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /.env
+Disallow: /.git/
+
+# OpenAI — ChatGPT browse / live fetch
+User-agent: ChatGPT-User
+Allow: /
+
+# OpenAI — ChatGPT Search index
+User-agent: OAI-SearchBot
+Allow: /
+
+# OpenAI — model training (allowed so ChatGPT can cite the brand)
+User-agent: GPTBot
+Allow: /
+
+# Google AI / Gemini
+User-agent: Google-Extended
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-User
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+
+# Common search crawlers
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://marketmakers.dev/sitemap.xml
